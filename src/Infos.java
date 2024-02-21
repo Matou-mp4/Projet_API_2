@@ -2,7 +2,45 @@ import java.util.ArrayList;
 
 public class Infos {
     protected int nbreHeures;
-    protected ArrayList <Cours> listeCours;
+    protected Cours cours;
     protected Enseignant enseignant;
     protected Salle salle;
+
+    public Infos(Cours cours,int nbreHeures ){
+        this.cours=cours;
+        this.nbreHeures=nbreHeures;
+    }
+    public int getNbreHeures() {
+        return nbreHeures;
+    }
+    public String getNomEnseignant() {
+        return enseignant.nom;
+    }
+
+    public void setNbreHeures(int nbreHeures) {
+        this.nbreHeures = nbreHeures;
+    }
+
+    public void setCours(Cours cours) {
+        this.cours = cours;
+    }
+
+    public void setEnseignant(Enseignant enseignant) {
+        this.enseignant = enseignant;
+    }
+
+    public void setSalle(Salle salle) {
+        this.salle = salle;
+    }
+
+    public int getCapaciteSalle() {
+        return salle.capacite;
+    }
+    public String getNomCours(){
+        return cours.intitule;
+    }
+    public Cours getCours() {
+        return cours;
+    }
+
 }
