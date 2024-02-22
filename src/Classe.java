@@ -7,6 +7,7 @@ public class Classe {
     protected ArrayList <EnseignantEtHeure> listeEnseigantEtHeure = new ArrayList<>();
     protected ArrayList <CoursEtHeure> listeCoursEtHeure = new ArrayList<>();
     protected ArrayList <SalleEtHeure> listeSalleEtHeure = new ArrayList<>();
+
     public Classe(){
 
     }
@@ -51,18 +52,40 @@ public class Classe {
         }
     }
     public void listeSallesEtHeures(){
-        int cpt=1;
+        SalleEtHeure ajout = new SalleEtHeure();
         if(listeInfosVerif()){
             for (Infos element : listeInfos){
-
+                ajout.setSalle(element.salle);
+                ajout.setNbreHeures(element.nbreHeures);
+                boolean flag=false;
+                for (SalleEtHeure sH : listeSalleEtHeure) {
+                    if(element.salle.equals(sH.salle)){
+                        sH.setNbreHeures(sH.nbreHeures + element.nbreHeures);
+                        flag=true;
+                    }
+                }
+                if(!flag){
+                    listeSalleEtHeure.add(ajout);
+                }
             }
         }
     }
     public void listeCoursEtHeures(){
-        int cpt=1;
+        CoursEtHeure ajout = new CoursEtHeure();
         if(listeInfosVerif()){
             for (Infos element : listeInfos){
-
+                ajout.setCours(element.cours);
+                ajout.setNbreHeures(element.nbreHeures);
+                boolean flag=false;
+                for (CoursEtHeure cH : listeCoursEtHeure) {
+                    if(element.cours.equals(cH.cours)){
+                        cH.setNbreHeures(cH.nbreHeures + element.nbreHeures);
+                        flag=true;
+                    }
+                }
+                if(!flag){
+                    listeCoursEtHeure.add(ajout);
+                }
             }
         }
     }
