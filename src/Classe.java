@@ -3,7 +3,10 @@ import java.util.ArrayList;
 public class Classe {
     protected String sigle, specialite;
     protected int annee, nbreEleves;
-    protected ArrayList <Infos> listeInfos;
+    protected ArrayList <Infos> listeInfos = new ArrayList<>();
+    protected ArrayList <EnseignantEtHeure> listeEnseigantEtHeure = new ArrayList<>();
+    protected ArrayList <CoursEtHeure> listeCoursEtHeure = new ArrayList<>();
+    protected ArrayList <SalleEtHeure> listeSalleEtHeure = new ArrayList<>();
     public Classe(){
 
     }
@@ -29,10 +32,21 @@ public class Classe {
     }
     public void listeEnseignantsEtHeures(){
         int cpt=1;
+        EnseignantEtHeure ajout = new EnseignantEtHeure();
         if(listeInfosVerif()){
             for (Infos element : listeInfos){
-                System.out.println(cpt+". Professeur(e) : "+element.getNomEnseignant()+" Nombre d'heures : "+element.getNbreHeures());
-                cpt++;
+                ajout.setEnseignant(element.enseignant);
+                ajout.setNbreHeures(element.nbreHeures);
+                boolean flag=false;
+                for (EnseignantEtHeure eH : listeEnseigantEtHeure) {
+                    if(element.enseignant.equals(eH.enseignant)){
+                        eH.setNbreHeures(eH.nbreHeures + element.nbreHeures);
+                        flag=true;
+                    }
+                }
+                if(!flag){
+                    listeEnseigantEtHeure.add(ajout);
+                }
             }
         }
     }
@@ -40,8 +54,7 @@ public class Classe {
         int cpt=1;
         if(listeInfosVerif()){
             for (Infos element : listeInfos){
-                System.out.println(cpt+". Professeur(e) : "+element.getCapaciteSalle()+" Nombre d'heures : "+element.getNbreHeures());
-                cpt++;
+
             }
         }
     }
@@ -49,8 +62,7 @@ public class Classe {
         int cpt=1;
         if(listeInfosVerif()){
             for (Infos element : listeInfos){
-                System.out.println("Cours "+cpt+" : "+element.getNomCours()+" Nombre d'heures : "+element.getNbreHeures());
-                cpt++;
+
             }
         }
     }
