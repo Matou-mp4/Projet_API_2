@@ -1,5 +1,8 @@
 import java.util.Objects;
-
+/** Classe Salle
+ * @Author Dangreau Antoine
+ * @Version 1.0
+ */
 public class Salle {
     protected String sigle;
     protected int capacite;

@@ -1,5 +1,8 @@
 import java.util.ArrayList;
-
+/** Classe Infos
+ * @Author Dangreau Antoine
+ * @Version 1.0
+ */
 public class Infos {
     protected int nbreHeures;
     protected Cours cours;

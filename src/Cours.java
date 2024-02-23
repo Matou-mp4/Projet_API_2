@@ -1,5 +1,8 @@
 import java.util.Objects;
-
+/** Classe Cours
+ * @Author Dangreau Antoine
+ * @Version 1.0
+ */
 public class Cours {
     protected String code,intitule;
     public Cours(){

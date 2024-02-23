@@ -1,7 +1,10 @@
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
-
+        /** Classe Enseignant
+        * @Author Dangreau Antoine
+        * @Version 1.0
+        */
 public class Enseignant {
     protected String matricule, nom, prenom,tel;
     protected int chargeSem;

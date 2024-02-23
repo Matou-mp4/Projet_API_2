@@ -1,3 +1,7 @@
+/** Classe CoursEtHeure
+ * @Author Dangreau Antoine
+ * @Version 1.0
+ */
 public class CoursEtHeure {
     protected int nbreHeures = 0;
     protected Cours cours;

@@ -1,3 +1,7 @@
+/** Classe SalleEtHeure
+ * @Author Dangreau Antoine
+ * @Version 1.0
+ */
 public class SalleEtHeure {
     protected int nbreHeures = 0;
     protected Salle salle;
