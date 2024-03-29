@@ -251,6 +251,17 @@ public class Classe {
     public boolean salleCapaciteOK(Salle salle) {
         return nbreEleves <= salle.getCapacite();
     }
+
+    @Override
+    public String toString() {
+        return "Classe{" +
+                "idClasse="  + idClasse +
+                ", annee= " + annee +
+                ", sigle= '" + sigle + '\'' +
+                ", specialite='" + specialite + '\'' +
+                ", nbreEleves=" + nbreEleves +
+                '}';
+    }
 }
 
 

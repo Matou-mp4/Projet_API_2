@@ -14,7 +14,7 @@ public class DBConnection {
 
     public static Connection getConnection() {
         if (dbConnect!=null)return dbConnect;
-        PropertyResourceBundle properties = (PropertyResourceBundle) PropertyResourceBundle.getBundle("resources.application");
+        PropertyResourceBundle properties = (PropertyResourceBundle) PropertyResourceBundle.getBundle("ressources.application");
         //nom du fichier properties à utiliser
         String serverName = properties.getString("cours.DB.server");
         String dbName = properties.getString("cours.DB.database");

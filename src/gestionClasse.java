@@ -10,7 +10,6 @@ public class gestionClasse {
     public gestionClasse(){
 
     }
-
     public void gestion() {
         dbConnect = DBConnection.getConnection();
         if (dbConnect == null) {
@@ -57,7 +56,7 @@ public class gestionClasse {
         String specialite = sc.nextLine();
         System.out.print("Nombre d'élèves :");
         Integer nbreEleves = sc.nextInt();
-        String query1 = "insert into API_CLASSE(annee,sigle,specialite,nbreelves) values(?,?,?,?)";
+        String query1 = "insert into API_CLASSE(annee,sigle,specialite,nbreeleves) values(?,?,?,?)";
         String query2 = "select idclasse from API_CLASSE where annee= ? and sigle =?";
         try(PreparedStatement pstm1= dbConnect.prepareStatement(query1);
             PreparedStatement pstm2= dbConnect.prepareStatement(query2);
