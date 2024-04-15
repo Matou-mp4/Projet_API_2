@@ -1,16 +1,27 @@
-import java.sql.Connection;
-import java.util.Scanner;
-import myConnectionDB.DBConnection;
-import java.math.BigDecimal;
-import java.sql.*;
+package MVC.View;
 
-public class gestionClasse {
+import Class.*;
+import MVC.View.ClasseAbstractView;
+import myConnectionDB.DBConnection;
+import utilitaires.Utilitaire;
+import utilitaires.Utilitaire;
+import java.sql.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+import static utilitaires.Utilitaire.choixListe;
+
+
+public class ClasseViewConsole extends ClasseAbstractView {
     private Scanner sc = new Scanner(System.in);
     private Connection dbConnect;
-    public gestionClasse(){
-
+    @Override
+    public void affMsg(String msg) {
+        System.out.println("information:" + msg);
     }
-    public void gestion() {
+    @Override
+    public void menu() {
         dbConnect = DBConnection.getConnection();
         if (dbConnect == null) {
             System.exit(1);
@@ -46,6 +57,12 @@ public class gestionClasse {
         } while (true);
 
     }
+
+    @Override
+    public void affList(List l) {
+
+    }
+
     public void ajout() {
         System.out.print("Année :");
         Integer annee = sc.nextInt();
@@ -159,8 +176,14 @@ public class gestionClasse {
             System.out.println("erreur sql :"+e);
         }
     }
-    public static void main(String[] args){
-        gestionClasse g = new gestionClasse();
-        g.gestion();
+    @Override
+    public Classe selectionner() {
+        update(classeController.getAll());
+        int nl = choixListe(lc);
+        Classe classe = lc.get(nl - 1);
+        return classe;
     }
+
 }
+
+

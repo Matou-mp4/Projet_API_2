@@ -1,4 +1,6 @@
-/** Classe CoursEtHeure
+package Class;
+
+/** Class.Classe Class.CoursEtHeure
  * @Author Dangreau Antoine
  * @Version 1.0
  */

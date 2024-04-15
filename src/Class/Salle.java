@@ -1,6 +1,8 @@
+package Class;
+
 import java.util.ArrayList;
 import java.util.Objects;
-/** Classe Salle
+/** Class.Classe Class.Salle
  * @Author Dangreau Antoine
  * @Version 1.0
  */

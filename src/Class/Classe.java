@@ -1,7 +1,9 @@
+package Class;
+
 import java.util.ArrayList;
 
 /**
- * Classe Classe
+ * Class.Classe Class.Classe
  *
  * @Author Dangreau Antoine
  * @Version 1.0
@@ -227,10 +229,10 @@ public class Classe {
     public void suppCours(Cours c) {
         listeInfos.removeIf(element -> (element.getCours()).equals(c));
         /*
-        for (Infos element : listeInfos){
+        for (Class.Infos element : listeInfos){
             if((element.getCours()).equals(c)){
                 listeInfos.remove(element);
-                System.out.println("Cours "+ c.getIntitule+" supprimé");
+                System.out.println("Class.Cours "+ c.getIntitule+" supprimé");
             }
         }
         */
@@ -254,7 +256,7 @@ public class Classe {
 
     @Override
     public String toString() {
-        return "Classe{" +
+        return "Class.Classe{" +
                 "idClasse="  + idClasse +
                 ", annee= " + annee +
                 ", sigle= '" + sigle + '\'' +

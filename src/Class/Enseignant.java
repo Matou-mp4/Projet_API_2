@@ -1,7 +1,9 @@
+package Class;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
-        /** Classe Enseignant
+        /** Class.Classe Class.Enseignant
         * @Author Dangreau Antoine
         * @Version 1.0
         */
@@ -23,12 +25,12 @@ public class Enseignant {
              */
     protected LocalDate dateEngag;
             /**
-             * Classe préférée de l'enseignant
+             * Class.Classe préférée de l'enseignant
              */
     protected Classe preference;
 
             /**
-             * Constructeur parametré de la classe Enseignant
+             * Constructeur parametré de la classe Class.Enseignant
              * @param matricule
              * @param nom
              * @param prenom

@@ -1,4 +1,6 @@
-/** Classe Infos
+package Class;
+
+/** Class.Classe Class.Infos
  * @Author Dangreau Antoine
  * @Version 1.0
  */
@@ -25,7 +27,7 @@ public class Infos {
      * @param cours cours donné
      * @param nbreHeures nombre d'heures du cours donné
      */
-    public Infos(Cours cours,int nbreHeures ){
+    public Infos(Cours cours, int nbreHeures ){
         this.cours=cours;
         this.nbreHeures=nbreHeures;
     }

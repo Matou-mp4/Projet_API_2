@@ -1,5 +1,7 @@
+package Class;
+
 import java.util.Objects;
-/** Classe Cours
+/** Class.Classe Class.Cours
  * @Author Dangreau Antoine
  * @Version 1.0
  */
