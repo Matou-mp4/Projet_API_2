@@ -1,5 +1,5 @@
 package MVC.Model;
-import Class.*;
+import Ecole.*;
 import MVC.observer.Subject;
 
 import java.util.ArrayList;

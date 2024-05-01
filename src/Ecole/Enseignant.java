@@ -1,4 +1,4 @@
-package Class;
+package Ecole;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

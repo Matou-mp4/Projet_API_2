@@ -2,10 +2,9 @@ package MVC.controller;
 
 import MVC.Model.*;
 import MVC.View.ClasseAbstractView;
-import Class.*;
+import Ecole.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class ClasseController {

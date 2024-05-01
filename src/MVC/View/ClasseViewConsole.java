@@ -1,12 +1,9 @@
 package MVC.View;
 
-import Class.*;
-import MVC.View.ClasseAbstractView;
+import Ecole.*;
 import myConnectionDB.DBConnection;
-import utilitaires.Utilitaire;
-import utilitaires.Utilitaire;
+
 import java.sql.*;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 

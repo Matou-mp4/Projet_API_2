@@ -1,4 +1,4 @@
-package Class;
+package Ecole;
 
 import java.sql.Connection;
 import java.util.Scanner;

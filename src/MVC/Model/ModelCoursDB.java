@@ -4,12 +4,12 @@ import Ecole.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelClasseDB extends DAOClasse {
-    private List<Classe> ldatas = new ArrayList<>();
+public class ModelCoursDB extends DAOCours {
+    private List<Cours> ldatas = new ArrayList<>();
 
 
     @Override
-    public Classe add(Classe elt) {
+    public Cours add(Cours elt) {
         boolean present = ldatas.contains(elt);
         if (!present) {
             ldatas.add(elt);
@@ -19,14 +19,14 @@ public class ModelClasseDB extends DAOClasse {
     }
 
     @Override
-    public boolean remove(Classe elt) {
+    public boolean remove(Cours elt) {
         boolean ok = ldatas.remove(elt);
         notifyObservers();
         return ok;
     }
 
     @Override
-    public Classe update(Classe elt) {
+    public Cours update(Cours elt) {
         int p = ldatas.indexOf(elt);
         if (p < 0) return null;
         ldatas.set(p, elt);
@@ -35,34 +35,34 @@ public class ModelClasseDB extends DAOClasse {
     }
 
     @Override
-    public Classe read(Classe rech) {
+    public Cours read(Cours rech) {
         int p = ldatas.indexOf(rech);
         if (p < 0) return null;
         return ldatas.get(p);
     }
 
     @Override
-    public List<Classe> getAll() {
+    public List<Cours> getAll() {
         return ldatas;
     }
 
     @Override
-    public ArrayList<CoursEtHeure> listerCours(Classe c,Cours co) {
+    public ArrayList<CoursEtHeure> listerCours(Cours c,Cours co) {
         return null;
     }
 
     @Override
-    public ArrayList<SalleEtHeure> listerSalles(Classe c,Salle sa) {
+    public ArrayList<SalleEtHeure> listerSalles(Cours c,Salle sa) {
         return null;
     }
 
     @Override
-    public ArrayList<EnseignantEtHeure> listerEnseigant(Classe c,Enseignant en) {
+    public ArrayList<EnseignantEtHeure> listerEnseigant(Cours c,Enseignant en) {
         return null;
     }
 
     @Override
-    public ArrayList<Infos> listerInfos(Classe c) {
+    public ArrayList<Infos> listerInfos(Cours c) {
         return null;
     }
 }

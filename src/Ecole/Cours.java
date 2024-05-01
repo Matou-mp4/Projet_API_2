@@ -1,4 +1,4 @@
-package Class;
+package Ecole;
 
 import java.util.Objects;
 /** Class.Classe Class.Cours

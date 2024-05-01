@@ -1,7 +1,7 @@
 package MVC.View;
 import MVC.observer.Observer;
 import MVC.controller.ClasseController;
-import Class.Classe;
+import Ecole.Classe;
 import java.util.List;
 
 public abstract class ClasseAbstractView implements Observer {

@@ -1,4 +1,4 @@
-package Class;
+package Ecole;
 
 /** Class.Classe Class.EnseignantEtHeure
  * @Author Dangreau Antoine

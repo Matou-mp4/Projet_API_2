@@ -1,4 +1,4 @@
-package Class;
+package Ecole;
 
 import java.util.ArrayList;
 
