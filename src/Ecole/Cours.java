@@ -21,6 +21,14 @@ public class Cours {
         this.intitule = intitule;
     }
 
+    public String getIntitule() {
+        return intitule;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
     /**
      *Verification de l'égalité de deux cours
      * @param o

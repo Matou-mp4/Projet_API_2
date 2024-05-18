@@ -1,5 +1,5 @@
 package Ecole;
-
+/* peut etre ajouter idClasse*/
 /** Class.Classe Class.Infos
  * @Author Dangreau Antoine
  * @Version 1.0
@@ -21,6 +21,7 @@ public class Infos {
      * sallee où le cours est donné
      */
     protected Salle salle;
+
 
     /**
      * Constructeur 1 parametré de la classe infos

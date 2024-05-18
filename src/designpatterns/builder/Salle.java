@@ -1,11 +1,10 @@
-package Ecole;
+package designpatterns.builder;
+
+import Ecole.Enseignant;
 
 import java.util.ArrayList;
 import java.util.Objects;
-/** Class.Classe Class.Salle
- * @Author Dangreau Antoine
- * @Version 1.0
- */
+
 public class Salle {
     /**
      * sigle unique de la salle
@@ -20,16 +19,10 @@ public class Salle {
      */
     protected ArrayList<Enseignant> listeEnseignant=new ArrayList<>();
 
-    /**
-     * Constructeur paramétrè de la salle
-     * @param sigle
-     * @param capacite
-     */
-    public Salle(String sigle, int capacite) {
-        this.sigle = sigle;
-        this.capacite = capacite;
+    public Salle(SalleBuilder sb) {
+        this.sigle = sb.sigle;
+        this.capacite = sb.capacite;
     }
-
     /**
      * fonction retournant la capacité de la classe
      * @return capacite capacite de la classe
@@ -55,8 +48,8 @@ public class Salle {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Salle salle = (Salle) o;
-        return capacite == salle.capacite && Objects.equals(sigle, salle.sigle);
+        Ecole.Salle salle = (Ecole.Salle) o;
+        return capacite == salle.getCapacite() && Objects.equals(sigle, salle.getSigle());
     }
 
     /**
@@ -66,5 +59,38 @@ public class Salle {
     @Override
     public int hashCode() {
         return Objects.hash(sigle, capacite);
+    }
+
+    public void setSigle(String sigle) {
+        this.sigle = sigle;
+    }
+
+    public void setCapacite(int capacite) {
+        this.capacite = capacite;
+    }
+    public static class SalleBuilder{
+        /**
+         * sigle unique de la salle
+         */
+        protected String sigle;
+        /**
+         * capacité de la classe
+         */
+        protected int capacite;
+
+        public SalleBuilder setSigle(String sigle) {
+            this.sigle = sigle;
+            return this;
+        }
+
+        public SalleBuilder setCapacite(int capacite) {
+            this.capacite = capacite;
+            return this;
+        }
+
+        public Salle builder() throws Exception{
+            if(sigle == null || capacite<=0 ) throw new Exception("informations de construction incomplètes");
+            return new Salle(this);
+        }
     }
 }

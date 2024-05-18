@@ -70,4 +70,8 @@ public class Enseignant {
     public int hashCode() {
         return Objects.hash(matricule, nom, prenom, tel, chargeSem, salaireMensu, dateEngag, preference);
     }
-}
+
+            public String getNom() {
+                return nom;
+            }
+        }
