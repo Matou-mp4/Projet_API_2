@@ -23,18 +23,6 @@ public class Classe {
      * - le nombre d'heures
      */
     protected ArrayList<Infos> listeInfos = new ArrayList<>();
-    /**
-     * Liste des enseignants et du nombre d'heures
-     */
-    protected ArrayList<EnseignantEtHeure> listeEnseigantEtHeure = new ArrayList<>();
-    /**
-     * Liste des cours et du nombre d'heures
-     */
-    protected ArrayList<CoursEtHeure> listeCoursEtHeure = new ArrayList<>();
-    /**
-     * Liste des salles et du nombre d'heures
-     */
-    protected ArrayList<SalleEtHeure> listeSalleEtHeure = new ArrayList<>();
     private Classe(ClasseBuilder cb){
         this.annee=cb.annee;
         this.idClasse=cb.idClasse;
