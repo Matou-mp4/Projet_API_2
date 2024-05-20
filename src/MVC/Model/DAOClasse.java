@@ -12,7 +12,7 @@ public abstract class DAOClasse extends Subject {
 
     public abstract Classe update(Classe elt) ;
 
-    public abstract Classe read(Classe rech) ;
+    public abstract Classe read(int rech) ;
 
     public abstract List<Classe> getAll() ;
 

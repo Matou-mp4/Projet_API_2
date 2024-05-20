@@ -4,30 +4,26 @@ import Ecole.*;
 import myConnectionDB.DBConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static utilitaires.Utilitaire.choixListe;
+import static utilitaires.Utilitaire.*;
 
 
 public class ClasseViewConsole extends ClasseAbstractView {
     private Scanner sc = new Scanner(System.in);
-    private Connection dbConnect;
     @Override
     public void affMsg(String msg) {
         System.out.println("information:" + msg);
     }
     @Override
     public void menu() {
-        dbConnect = DBConnection.getConnection();
-        if (dbConnect == null) {
-            System.exit(1);
-        }
-        System.out.println("connexion établie");
+        int ch;
         do {
             System.out.println("1.ajout\n2.recherche\n3.modification\n4.suppression\n5.tous\n6.fin");
             System.out.println("choix : ");
-            int ch = sc.nextInt();
+            ch = lireInt();
             sc.skip("\n");
             switch (ch) {
                 case 1:
@@ -46,131 +42,114 @@ public class ClasseViewConsole extends ClasseAbstractView {
                     tous();
                     break;
                 case 6:
-                    System.exit(0);
                     break;
                 default:
                     System.out.println("choix invalide recommencez ");
             }
-        } while (true);
+        } while (ch!=6);
 
     }
 
     @Override
     public void affList(List l) {
-
+        affList(l);
     }
 
     public void ajout() {
         System.out.print("Année :");
-        Integer annee = sc.nextInt();
+        Integer annee = lireInt();
         sc.skip("\n");
         System.out.print("Sigle :");
         String sigle = sc.nextLine();
         System.out.print("Specialite :");
         String specialite = sc.nextLine();
         System.out.print("Nombre d'élèves :");
-        Integer nbreEleves = sc.nextInt();
-        String query1 = "insert into API_CLASSE(annee,sigle,specialite,nbreeleves) values(?,?,?,?)";
-        String query2 = "select idclasse from API_CLASSE where annee= ? and sigle =?";
-        try(PreparedStatement pstm1= dbConnect.prepareStatement(query1);
-            PreparedStatement pstm2= dbConnect.prepareStatement(query2);
-        ){
-            pstm1.setInt(1,annee);
-            pstm1.setString(2,sigle);
-            pstm1.setString(3,specialite);
-            pstm1.setInt(4,nbreEleves);
-            int n = pstm1.executeUpdate();
-            System.out.println(n+" ligne insérée");
-            if(n==1){
-                pstm2.setInt(1,annee);
-                pstm2.setString(2,sigle);
-                ResultSet rs= pstm2.executeQuery();
-                if(rs.next()){
-                    int idClasse= rs.getInt(1);
-                    System.out.println("idclient = "+idClasse);
-                }
-                else System.out.println("record introuvable");
-            }
-
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
+        Integer nbreEleves = lireInt();
+        Classe classe = new Classe(annee,sigle,specialite,nbreEleves);
+        Classe cl = classeController.add(classe);
+        if(cl==null) affMsg("La classe recherchee n'existe pas");
+        else{
+            affMsg(cl.toString());
         }
     }
 
 
     public void recherche() {
-
         System.out.println("id de la classe recherché ");
-        int idrech = sc.nextInt();
-        String query = "select * from API_CLASSE where idClasse = ?";
-        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setInt(1,idrech);
-            ResultSet rs = pstm.executeQuery();
-            if(rs.next()){
-                int annee = rs.getInt(2);
-                String sigle = rs.getString(5);
-                int nbreEleves = rs.getInt(4);
-                String specialite = rs.getString(3);
-                Classe cl = new Classe(idrech,sigle,specialite,annee,nbreEleves);
-                System.out.println(cl);
-            }
-            else System.out.println("record introuvable");
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
+        int idrech = lireInt();
+        Classe classe = classeController.read(idrech);
+        if(classe==null) affMsg("La classe recherchee n'existe pas");
+        else{
+            affMsg(classe.toString());
         }
-
     }
 
     public void modification() {
-        System.out.println("id de la classe recherchée ");
-        int idrech = sc.nextInt();
-        sc.skip("\n");
-        System.out.println("nouveau nombre d'élève : ");
-        int nbreEleves = sc.nextInt();
-        String query = "update API_CLASSE set nbreeleves=? where idclasse = ?";
-        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setInt(1,nbreEleves);
-            pstm.setInt(2,idrech);
-            int n = pstm.executeUpdate();
-            if(n!=0) System.out.println(n+ "ligne mise à jour");
-            else System.out.println("record introuvable");
-
-        } catch (SQLException e) {
-            System.out.println("erreur sql :" + e);
+        List<Classe> classes = classeController.getAll();
+        int idrech = choixListe(classes);
+        Classe classe = classes.get(idrech-1);
+        int ch;
+        do {
+            System.out.println("1.annee\n2.sigle\n3.specialite\n4.nbreEleves\n5.fin");
+            System.out.println("choix : ");
+            ch = lireInt();
+            sc.skip("\n");
+            switch (ch) {
+                case 1:
+                    System.out.println("nouvelle annee : ");
+                    int annee = lireInt();
+                    classe.setAnnee(annee);
+                    break;
+                case 2:
+                    System.out.println("nouveau sigle : ");
+                    String sigle = sc.nextLine();
+                    classe.setSigle(sigle);
+                    break;
+                case 3:
+                    System.out.println("nouvelle specialite : ");
+                    String specialite = sc.nextLine();
+                    classe.setSpecialite(specialite);
+                    break;
+                case 4:
+                    System.out.println("nouveau nombre d'élève : ");
+                    int nbreEleves = lireInt();
+                    classe.setNbreEleves(nbreEleves);
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("choix invalide recommencez ");
+            }
+        } while (ch!=5);
+        Classe classeVerif = classeController.update(classe);
+        if(classeVerif == null){
+            affMsg("La classe est vide.");
+        }
+        else if(classeVerif.equals(classe)){
+            affMsg("Aucune modification n'a ete effectue.");
+        }
+        else{
+            affMsg("modification effectuee");
         }
     }
     public void suppression() {
-        System.out.println("id de la classe recherchée ");
-        int idrech = sc.nextInt();
-        String query = "delete from API_CLASSE where idclasse = ?";
-        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setInt(1,idrech);
-            int n = pstm.executeUpdate();
-            if(n!=0) System.out.println(n+ "ligne supprimée");
-            else System.out.println("record introuvable");
-
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
+        List<Classe> classes = classeController.getAll();
+        int idrech = choixListe(classes);
+        Classe classe = classes.get(idrech-1);
+        boolean isRemoved = classeController.remove(classe);
+        if(isRemoved){
+            affMsg("Suppression effectuee");
         }
-
+        else{
+            affMsg("Suppression non effectuee");
+        }
     }
 
     private void tous() {
-        String query="select * from API_CLASSE";
-        try(Statement stm = dbConnect.createStatement()) {
-            ResultSet rs = stm.executeQuery(query);
-            while(rs.next()){
-                int idClasse = rs.getInt(1);
-                String sigle = rs.getString(5);
-                String specialite = rs.getString(3);
-                int annee = rs.getInt(2);
-                int nbreEleves = rs.getInt(4);
-                Classe cl = new Classe(idClasse,sigle,specialite,annee,nbreEleves);
-                System.out.println(cl);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
+        List<Classe> classes = classeController.getAll();
+        affList(classes);
+        if(classes.isEmpty()){
+            affMsg("La liste est vide.");
         }
     }
     @Override

@@ -9,7 +9,6 @@ public class gestionMVC {
     public static DAOSalle s;
     public static SalleAbstractView sav;
     public static SalleController sc;
-    public static
     private DAOClasse cl;
     public static ClasseAbstractView clav;
     public static ClasseController clc;
@@ -22,4 +21,6 @@ public class gestionMVC {
     private DAOInfos i;
     public static InfosAbstractView iav;
     public static InfosController ic;
+
+
 }

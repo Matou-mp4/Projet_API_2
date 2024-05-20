@@ -1,6 +1,7 @@
 package Ecole;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Class.Classe Class.Classe
@@ -54,6 +55,14 @@ public class Classe {
         this.annee = annee;
         this.nbreEleves = nbreEleves;
     }
+
+    public Classe(int annee, String sigle, String specialite, int nbreEleves) {
+        this.annee=annee;
+        this.sigle=sigle;
+        this.specialite=specialite;
+        this.nbreEleves=nbreEleves;
+    }
+
 
     /**
      * fonction verifiant si la liste des infos n'est pas vide
@@ -263,6 +272,59 @@ public class Classe {
                 ", specialite='" + specialite + '\'' +
                 ", nbreEleves=" + nbreEleves +
                 '}';
+    }
+
+    public String getSigle() {
+        return sigle;
+    }
+
+    public void setSigle(String sigle) {
+        this.sigle = sigle;
+    }
+
+    public String getSpecialite() {
+        return specialite;
+    }
+
+    public void setSpecialite(String specialite) {
+        this.specialite = specialite;
+    }
+
+    public int getIdClasse() {
+        return idClasse;
+    }
+
+    public void setIdClasse(int idClasse) {
+        this.idClasse = idClasse;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+
+    public int getNbreEleves() {
+        return nbreEleves;
+    }
+
+    public void setNbreEleves(int nbreEleves) {
+        this.nbreEleves = nbreEleves;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Classe classe = (Classe) o;
+        return idClasse == classe.idClasse && annee == classe.annee && nbreEleves == classe.nbreEleves && Objects.equals(sigle, classe.sigle) && Objects.equals(specialite, classe.specialite);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sigle, specialite, idClasse, annee, nbreEleves);
     }
 }
 

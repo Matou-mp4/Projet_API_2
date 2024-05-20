@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClasseController {
-    private DAOClasse model;
+    private DAO<Classe> model;
     private ClasseAbstractView view;
 
-    public ClasseController(DAOClasse model, ClasseAbstractView view) {
+    public ClasseController(DAO<Classe> model, ClasseAbstractView view) {
         this.model = model;
         this.view = view;
         this.view.setController(this);
@@ -25,8 +25,6 @@ public class ClasseController {
         Classe nelt = model.add(elt);
         return nelt;
     }
-
-
     public boolean remove(Classe elt) {
         return model.remove(elt);
     }
@@ -34,24 +32,8 @@ public class ClasseController {
         return model.update(elt);
     }
 
-    public Classe search(Classe rech) {
+    public Classe read( int rech) {
         return  model.read(rech);
-    }
-    public ArrayList<Infos> listerinfos(Classe c) {
-        return model.listerInfos(c);
-    }
-
-    public List<EnseignantEtHeure> listerLivre(Classe c, Enseignant en) {
-
-        return model.listerEnseigant(c,en);
-    }
-
-    public List<CoursEtHeure> listerOuvrages(Classe c, Cours co) {
-        return model.listerCours(c,co);
-    }
-    public List<SalleEtHeure> listerLivre(Classe c, Salle sa) {
-
-        return model.listerSalles(c,sa);
     }
 
 }
