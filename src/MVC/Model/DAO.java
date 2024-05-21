@@ -12,6 +12,7 @@ public abstract class DAO<T> extends Subject{
     public abstract T update (T elt) ;
 
     public abstract T read(int rech) ;
+    public abstract T read(String rech);
     public abstract List<T> getAll() ;
 
     public List<T> getNotification(){

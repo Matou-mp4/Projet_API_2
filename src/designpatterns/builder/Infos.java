@@ -23,6 +23,8 @@ public class Infos {
      * sallee où le cours est donné
      */
     protected Salle salle;
+
+    protected Classe classe;
     public Infos(InfosBuilder ib){
         this.cours=ib.cours;
         this.salle=ib.salle;

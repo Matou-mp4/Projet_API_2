@@ -9,6 +9,7 @@ public class Infos {
      * nombre d'heure d'un cours donné
      */
     protected int nbreHeures;
+    private int idInfos;
     /**
      * cours donné
      */
@@ -22,7 +23,7 @@ public class Infos {
      */
     protected Salle salle;
 
-
+    protected Classe classe;
     /**
      * Constructeur 1 parametré de la classe infos
      * @param cours cours donné
@@ -40,11 +41,21 @@ public class Infos {
      * @param enseignant enseignant donnant le cours
      * @param salle salle ou le cours est donné
      */
-    public Infos(int nbreHeures, Cours cours, Enseignant enseignant, Salle salle) {
+    public Infos(int nbreHeures, Cours cours, Enseignant enseignant, Salle salle,Classe classe) {
         this.nbreHeures = nbreHeures;
         this.cours = cours;
         this.enseignant = enseignant;
         this.salle = salle;
+        this.classe=classe;
+    }
+
+    public Infos(int nbreHeures, int idInfos, Cours cours, Enseignant enseignant, Salle salle, Classe classe) {
+        this.nbreHeures = nbreHeures;
+        this.idInfos = idInfos;
+        this.cours = cours;
+        this.enseignant = enseignant;
+        this.salle = salle;
+        this.classe = classe;
     }
 
     /**
@@ -119,4 +130,27 @@ public class Infos {
         return cours;
     }
 
+    public Enseignant getEnseignant() {
+        return enseignant;
+    }
+
+    public Salle getSalle() {
+        return salle;
+    }
+
+    public Classe getClasse() {
+        return classe;
+    }
+
+    public void setClasse(Classe classe) {
+        this.classe = classe;
+    }
+
+    public int getIdInfos() {
+        return idInfos;
+    }
+
+    public void setIdInfos(int idInfos) {
+        this.idInfos = idInfos;
+    }
 }

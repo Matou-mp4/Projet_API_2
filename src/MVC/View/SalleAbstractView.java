@@ -5,11 +5,11 @@ import Ecole.Salle;
 import java.util.List;
 
 public abstract class SalleAbstractView implements Observer {
-    protected SalleController SalleController;
+    protected SalleController salleController;
     protected List<Salle> lc;
 
     public void setController(SalleController SalleController){
-        this.SalleController=SalleController;
+        this.salleController=SalleController;
     }
 
     public abstract void affMsg(String msg);

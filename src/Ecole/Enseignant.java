@@ -3,7 +3,7 @@ package Ecole;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
-        /** Class.Classe Class.Enseignant
+        /** Class.Salle Class.Enseignant
         * @Author Dangreau Antoine
         * @Version 1.0
         */
@@ -25,12 +25,12 @@ public class Enseignant {
              */
     protected LocalDate dateEngag;
             /**
-             * Class.Classe préférée de l'enseignant
+             * Class.Salle préférée de l'enseignant
              */
-    protected Classe preference;
+    protected Salle preference;
 
             /**
-             * Constructeur parametré de la classe Class.Enseignant
+             * Constructeur parametré de la Salle Class.Enseignant
              * @param matricule
              * @param nom
              * @param prenom
@@ -40,7 +40,7 @@ public class Enseignant {
              * @param dateEngag
              * @param preference
              */
-            public Enseignant(String matricule, String nom, String prenom, String tel, int chargeSem, BigDecimal salaireMensu, LocalDate dateEngag, Classe preference) {
+            public Enseignant(String matricule, String nom, String prenom, String tel, int chargeSem, BigDecimal salaireMensu, LocalDate dateEngag, Salle preference) {
                 this.matricule = matricule;
                 this.nom = nom;
                 this.prenom = prenom;
@@ -71,7 +71,67 @@ public class Enseignant {
         return Objects.hash(matricule, nom, prenom, tel, chargeSem, salaireMensu, dateEngag, preference);
     }
 
+            public String getMatricule() {
+                return matricule;
+            }
+
+            public void setMatricule(String matricule) {
+                this.matricule = matricule;
+            }
+
             public String getNom() {
                 return nom;
+            }
+
+            public void setNom(String nom) {
+                this.nom = nom;
+            }
+
+            public String getPrenom() {
+                return prenom;
+            }
+
+            public void setPrenom(String prenom) {
+                this.prenom = prenom;
+            }
+
+            public String getTel() {
+                return tel;
+            }
+
+            public void setTel(String tel) {
+                this.tel = tel;
+            }
+
+            public int getChargeSem() {
+                return chargeSem;
+            }
+
+            public void setChargeSem(int chargeSem) {
+                this.chargeSem = chargeSem;
+            }
+
+            public BigDecimal getSalaireMensu() {
+                return salaireMensu;
+            }
+
+            public void setSalaireMensu(BigDecimal salaireMensu) {
+                this.salaireMensu = salaireMensu;
+            }
+
+            public LocalDate getDateEngag() {
+                return dateEngag;
+            }
+
+            public void setDateEngag(LocalDate dateEngag) {
+                this.dateEngag = dateEngag;
+            }
+
+            public Salle getPreference() {
+                return preference;
+            }
+
+            public void setPreference(Salle preference) {
+                this.preference = preference;
             }
         }

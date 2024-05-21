@@ -10,7 +10,7 @@ public class Salle {
     /**
      * sigle unique de la salle
      */
-    protected String sigle;
+    protected int sigle;
     /**
      * capacité de la classe
      */
@@ -25,7 +25,7 @@ public class Salle {
      * @param sigle
      * @param capacite
      */
-    public Salle(String sigle, int capacite) {
+    public Salle(int sigle, int capacite) {
         this.sigle = sigle;
         this.capacite = capacite;
     }
@@ -42,7 +42,7 @@ public class Salle {
      * fonction retournant le sigle de la classe
      * @return sigle sigle de la classe
      */
-    public String getSigle() {
+    public int getSigle() {
         return sigle;
     }
 

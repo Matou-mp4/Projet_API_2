@@ -150,7 +150,7 @@ public class SalleViewConsole extends SalleAbstractView {
     }
     @Override
     public Salle selectionner() {
-        update(SalleController.getAll());
+        update(salleController.getAll());
         int nl = choixListe(lc);
         Salle Salle = lc.get(nl - 1);
         return Salle;

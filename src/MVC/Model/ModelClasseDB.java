@@ -110,6 +110,11 @@ public class ModelClasseDB extends DAO<Classe> implements DAOSpecialClasse{
     }
 
     @Override
+    public Classe read(String rech) {
+        return null;
+    }
+
+    @Override
     public List<Classe> getAll() {
         ArrayList<Classe> classes = new ArrayList<>();
         String query="select * from API_CLASSE";

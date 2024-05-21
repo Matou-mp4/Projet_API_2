@@ -1,68 +1,115 @@
 package MVC.Model;
-import Ecole.*;
 
+import Ecole.*;
+import myConnectionDB.DBConnection;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelCoursDB extends DAOCours {
-    private List<Cours> ldatas = new ArrayList<>();
+public class ModelCoursDB extends DAO<Cours> {
+    protected Connection dbConnect;
 
+    public ModelCoursDB() {
+        dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.err.println("erreur de connexion");
+            System.exit(1);
+        }
+    }
 
     @Override
     public Cours add(Cours elt) {
-        boolean present = ldatas.contains(elt);
-        if (!present) {
-            ldatas.add(elt);
-            notifyObservers();
+        String query1 = "insert into API_Cours(code,intitule) values(?,?)";
+        String query2 = "select code from API_Cours where intitule= ?";
+        try (PreparedStatement pstm1 = dbConnect.prepareStatement(query1);
+             PreparedStatement pstm2 = dbConnect.prepareStatement(query2);
+        ) {
+            pstm1.setString(1, elt.getCode());
+            pstm1.setString(2, elt.getIntitule());
+            int n = pstm1.executeUpdate();
+            System.out.println(n + " ligne insérée");
             return elt;
-        } else return null;
+        } catch (SQLException e) {
+            System.out.println("erreur sql :" + e);
+        }
+        return null;
     }
 
     @Override
     public boolean remove(Cours elt) {
-        boolean ok = ldatas.remove(elt);
-        notifyObservers();
-        return ok;
+        String query = "delete from API_Cours where code = ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setString(1, elt.getCode());
+            int n = pstm.executeUpdate();
+            if (n != 0) {
+                System.out.println(n + "ligne supprimée");
+                return true;
+            } else System.out.println("record introuvable");
+
+        } catch (SQLException e) {
+            System.out.println("erreur sql :" + e);
+        }
+        return false;
     }
 
     @Override
     public Cours update(Cours elt) {
-        int p = ldatas.indexOf(elt);
-        if (p < 0) return null;
-        ldatas.set(p, elt);
-        notifyObservers();
-        return elt;
+        String query = "update API_Cours set intitule=? where code = ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setString(1, elt.getIntitule());
+            pstm.setString(2, elt.getCode());
+            int n = pstm.executeUpdate();
+            if (n != 0) {
+                System.out.println(n + "ligne mise à jour");
+                return elt;
+            } else System.out.println("record introuvable");
+
+        } catch (SQLException e) {
+            System.out.println("erreur sql :" + e);
+        }
+        return null;
     }
 
     @Override
-    public Cours read(Cours rech) {
-        int p = ldatas.indexOf(rech);
-        if (p < 0) return null;
-        return ldatas.get(p);
+    public Cours read(int rech) {
+        return null;
+    }
+
+    @Override
+    public Cours read(String code) {
+        String query = "select * from API_Cours where code = ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setString(1, code);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                String intitule = rs.getString(2);
+                Cours classe = new Cours(code, intitule);
+                System.out.println(classe);
+                return classe;
+            } else System.out.println("record introuvable");
+        } catch (SQLException e) {
+            System.out.println("erreur sql :" + e);
+        }
+        return null;
     }
 
     @Override
     public List<Cours> getAll() {
-        return ldatas;
-    }
+        ArrayList<Cours> lCours = new ArrayList<>();
+        String query = "select * from API_Cours";
+        try (Statement stm = dbConnect.createStatement()) {
+            ResultSet rs = stm.executeQuery(query);
+            while (rs.next()) {
+                String code = rs.getString(1);
+                String intitule = rs.getString(5);
+                Cours cours = new Cours(code, intitule);
+                lCours.add(cours);
+            }
 
-    @Override
-    public ArrayList<CoursEtHeure> listerCours(Cours c,Cours co) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<SalleEtHeure> listerSalles(Cours c,Salle sa) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<EnseignantEtHeure> listerEnseigant(Cours c,Enseignant en) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Infos> listerInfos(Cours c) {
-        return null;
+        } catch (SQLException e) {
+            System.out.println("erreur sql :" + e);
+        }
+        return lCours;
     }
 }

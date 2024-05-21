@@ -9,7 +9,7 @@ public class Salle {
     /**
      * sigle unique de la salle
      */
-    protected String sigle;
+    protected int sigle;
     /**
      * capacité de la classe
      */
@@ -35,7 +35,7 @@ public class Salle {
      * fonction retournant le sigle de la classe
      * @return sigle sigle de la classe
      */
-    public String getSigle() {
+    public int getSigle() {
         return sigle;
     }
 
@@ -61,7 +61,7 @@ public class Salle {
         return Objects.hash(sigle, capacite);
     }
 
-    public void setSigle(String sigle) {
+    public void setSigle(int sigle) {
         this.sigle = sigle;
     }
 
@@ -72,13 +72,13 @@ public class Salle {
         /**
          * sigle unique de la salle
          */
-        protected String sigle;
+        protected int sigle;
         /**
          * capacité de la classe
          */
         protected int capacite;
 
-        public SalleBuilder setSigle(String sigle) {
+        public SalleBuilder setSigle(int sigle) {
             this.sigle = sigle;
             return this;
         }
@@ -89,7 +89,7 @@ public class Salle {
         }
 
         public Salle builder() throws Exception{
-            if(sigle == null || capacite<=0 ) throw new Exception("informations de construction incomplètes");
+            if(sigle<=0 || capacite<=0 ) throw new Exception("informations de construction incomplètes");
             return new Salle(this);
         }
     }
