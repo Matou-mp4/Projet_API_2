@@ -5,11 +5,11 @@ import Ecole.Infos;
 import java.util.List;
 
 public abstract class InfosAbstractView implements Observer {
-    protected InfosController InfosController;
+    protected InfosController infosController;
     protected List<Infos> lc;
 
     public void setController(InfosController InfosController){
-        this.InfosController=InfosController;
+        this.infosController=InfosController;
     }
 
     public abstract void affMsg(String msg);

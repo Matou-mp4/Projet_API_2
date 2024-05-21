@@ -30,6 +30,10 @@ public class Salle {
         this.capacite = capacite;
     }
 
+    public Salle(int sigle) {
+        this.sigle=sigle;
+    }
+
     /**
      * fonction retournant la capacité de la classe
      * @return capacite capacite de la classe

@@ -62,7 +62,7 @@ public class SalleViewConsole extends SalleAbstractView {
         System.out.print("Nombre de place :");
         int capacite = lireInt();
         Salle Salle = new Salle(sigle,capacite);
-        Salle cl = SalleController.add(Salle);
+        Salle cl = salleController.add(Salle);
         if(cl==null) affMsg("La Salle recherchee n'existe pas");
         else{
             affMsg(cl.toString());
@@ -73,7 +73,7 @@ public class SalleViewConsole extends SalleAbstractView {
     public void recherche() {
         System.out.println("sigle de la Salle recherché ");
         int sigle = lireInt();
-        Salle Salle = SalleController.read(sigle);
+        Salle Salle = salleController.read(sigle);
         if(Salle==null) affMsg("La Salle recherchee n'existe pas");
         else{
             affMsg(Salle.toString());
@@ -81,7 +81,7 @@ public class SalleViewConsole extends SalleAbstractView {
     }
 
     public void modification() {
-        List<Salle> Salles = SalleController.getAll();
+        List<Salle> Salles = salleController.getAll();
         int idrech = choixListe(Salles);
         Salle Salle = Salles.get(idrech-1);
         int ch;
@@ -102,7 +102,7 @@ public class SalleViewConsole extends SalleAbstractView {
                     System.out.println("choix invalide recommencez ");
             }
         } while (ch!=5);
-        Salle SalleVerif = SalleController.update(Salle);
+        Salle SalleVerif = salleController.update(Salle);
         if(SalleVerif == null){
             affMsg("La Salle est vide.");
         }
@@ -114,10 +114,10 @@ public class SalleViewConsole extends SalleAbstractView {
         }
     }
     public void suppression() {
-        List<Salle> Salles = SalleController.getAll();
+        List<Salle> Salles = salleController.getAll();
         int idrech = choixListe(Salles);
         Salle Salle = Salles.get(idrech-1);
-        boolean isRemoved = SalleController.remove(Salle);
+        boolean isRemoved = salleController.remove(Salle);
         if(isRemoved){
             affMsg("Suppression effectuee");
         }
@@ -127,7 +127,7 @@ public class SalleViewConsole extends SalleAbstractView {
     }
 
     private void tous() {
-        List<Salle> Salles = SalleController.getAll();
+        List<Salle> Salles = salleController.getAll();
         affList(Salles);
         if(Salles.isEmpty()){
             affMsg("La liste est vide.");

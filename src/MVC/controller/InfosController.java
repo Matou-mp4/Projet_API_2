@@ -10,11 +10,27 @@ import java.util.List;
 public class InfosController {
     private DAO<Infos> model;
     private InfosAbstractView view;
+    private SalleController salleController;
+    private ClasseController classeController;
+    private CoursController coursController;
+    private EnseignantController enseignantController;
 
     public InfosController(DAO<Infos> model, InfosAbstractView view) {
         this.model = model;
         this.view = view;
         this.view.setController(this);
+    }
+    public List<Salle> getSalles(){
+        return salleController.getAll();
+    }
+    public List<Classe> getClasses(){
+        return classeController.getAll();
+    }
+    public List<Cours> getCourss(){
+        return coursController.getAll();
+    }
+    public List<Enseignant> getEnseignants(){
+        return enseignantController.getAll();
     }
     public List<Infos> getAll(){
         List<Infos> l = model.getAll();
@@ -27,6 +43,8 @@ public class InfosController {
     }
 
 
+
+
     public boolean remove(Infos elt) {
         return model.remove(elt);
     }
@@ -35,7 +53,13 @@ public class InfosController {
     }
 
     public Infos read(int rech) {
-        return  model.read(rech);
+        Infos infos = model.read(rech);
+        infos.setClasse(classeController.read(infos.getClasse().getIdClasse()));
+        infos.setSalle(salleController.read(infos.getSalle().getSigle()));
+        infos.setEnseignant(enseignantController.read(infos.getEnseignant().getMatricule()));
+        infos.setCours(coursController.read(infos.getCours().getCode()));
+        return infos;
     }
+
 
 }

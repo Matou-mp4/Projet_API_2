@@ -1,6 +1,7 @@
 package MVC.Model;
 
 import Ecole.*;
+import MVC.controller.EnseignantController;
 import myConnectionDB.DBConnection;
 
 import java.math.BigDecimal;
@@ -114,9 +115,7 @@ public class ModelEnseignantDB extends DAO<Enseignant> {
                 BigDecimal salaireMensu = BigDecimal.valueOf(rs.getFloat(6));
                 LocalDate date = rs.getDate(7).toLocalDate();
                 int sigle = rs.getInt(8);
-                //todo: creer une salle
-                Salle salle = salleContoller.read(sigle);
-                //todo : determiner comment trouver la salle
+                Salle salle = new Salle(sigle);
                 Enseignant enseignant = new Enseignant(rech, nom, prenom, tel, chargesem, salaireMensu, date, salle);
                 return enseignant;
             } else System.out.println("record introuvable");
@@ -141,10 +140,8 @@ public class ModelEnseignantDB extends DAO<Enseignant> {
                 int chargeSem = rs.getInt(5);
                 BigDecimal salairemensu = rs.getBigDecimal(6);
                 LocalDate dateengag = rs.getDate(7).toLocalDate();
-                String sigle = rs.getString(8);
-                Salle salle = salleContoller.read(sigle);
-                //todo: creer une salle
-                //todo : determiner comment trouver la salle
+                int sigle = rs.getInt(8);
+                Salle salle = new Salle(sigle);
                 Enseignant enseignant = new Enseignant(matricule, nom, prenom, tel, chargeSem, salairemensu, dateengag, salle);
                 enseignants.add(enseignant);
             }

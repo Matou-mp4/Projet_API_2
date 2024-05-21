@@ -3,9 +3,9 @@ package MVC.View;
 import Ecole.*;
 import MVC.Model.ModelSalleDB;
 import MVC.View.SalleAbstractView;
+import MVC.controller.EnseignantController;
 import MVC.controller.SalleController;
 import myConnectionDB.DBConnection;
-import MVC.gestionMVC;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -74,23 +74,22 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
         System.out.print("tel :");
         String tel = sc.nextLine();
         System.out.println("charge mensuelle : ");
-        int chargeSem = sc.nextInt();
+        int chargeSem = lireInt();
         System.out.println("salaire mensuel : ");
-        Float salaireMensu = sc.nextFloat();
+        BigDecimal salaireMensu = BigDecimal.valueOf(lireDouble());
         System.out.println("date d'engagement");
         System.out.println("jour : ");
-        int jour = sc.nextInt();
+        int jour = lireInt();
         System.out.println("mois :");
-        int mois = sc.nextInt();
+        int mois = lireInt();
         System.out.println("année : ");
-        int annee = sc.nextInt();
+        int annee = lireInt();
         LocalDate date = LocalDate.of(annee, mois, jour);
         System.out.println("sigle de la salle preférée");
-        List<Salle> salles = SalleController.getAll();
-
-
+        List<Salle> salles = enseignantController.getSalles();
+        Salle preference = salles.get(choixListe(salles)-1);
         Enseignant enseignant = new Enseignant(matricule, nom, prenom, tel, chargeSem, salaireMensu, date, preference);
-        Enseignant cl = EnseignantController.add(enseignant);
+        Enseignant cl = enseignantController.add(enseignant);
         if(cl==null) affMsg("La Enseignant recherchee n'existe pas");
         else{
             affMsg(cl.toString());
@@ -101,7 +100,7 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
     public void recherche() {
         System.out.println("Matricule de l'Enseignant recherché ");
         String matricule = sc.nextLine();
-        Enseignant Enseignant = EnseignantController.read(matricule);
+        Enseignant Enseignant = enseignantController.read(matricule);
         if(Enseignant==null) affMsg("La Enseignant recherchee n'existe pas");
         else{
             affMsg(Enseignant.toString());
@@ -109,9 +108,9 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
     }
 
     public void modification() {
-        List<Enseignant> Enseignants = EnseignantController.getAll();
-        int idrech = choixListe(Enseignants);
-        Enseignant Enseignant = Enseignants.get(idrech-1);
+        List<Enseignant> enseignants = enseignantController.getAll();
+        int idrech = choixListe(enseignants);
+        Enseignant enseignant = enseignants.get(idrech-1);
         int ch;
         do {
             System.out.println("1.nom\n2.prenom\n3.tel\n4.charge semestrielle\n5.salaire mensuel \n6.date d'engagement \n7.sigle de la salle preferee\n8.fin");
@@ -122,27 +121,27 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
                 case 1:
                     System.out.println("nouveau nom : ");
                     String nom = sc.nextLine();
-                    Enseignant.setNom(nom);
+                    enseignant.setNom(nom);
                     break;
                 case 2:
                     System.out.println("nouveau sigle : ");
                     String prenom = sc.nextLine();
-                    Enseignant.setPrenom(prenom);
+                    enseignant.setPrenom(prenom);
                     break;
                 case 3:
                     System.out.println("nouveau numero de telephone : ");
                     String tel = sc.nextLine();
-                    Enseignant.setTel(tel);
+                    enseignant.setTel(tel);
                     break;
                 case 4:
                     System.out.println("nouvelle charge semestrielle : ");
                     int chargeSem = lireInt();
-                    Enseignant.setChargeSem(chargeSem);
+                    enseignant.setChargeSem(chargeSem);
                     break;
                 case 5:
                     System.out.println("nouvelle charge mensuelle : ");
                     BigDecimal salaireMensu = BigDecimal.valueOf(lireLong());
-                    Enseignant.setSalaireMensu(salaireMensu);
+                    enseignant.setSalaireMensu(salaireMensu);
                     break;
                 case 6:
                     System.out.println("nouvelle date d'engagement : ");
@@ -153,12 +152,12 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
                     System.out.println("année : ");
                     int annee = lireInt();
                     LocalDate dateEngag = LocalDate.of(annee, mois, jour);
-                    Enseignant.setDateEngag(dateEngag);
+                    enseignant.setDateEngag(dateEngag);
                     break;
                 case 7:
                     System.out.println("nouvelle salle preferee : ");
-                    Salle preference = choixListe(SalleController.getAll())-1;
-                    //todo: regler le soucis
+                    List<Salle> salles = enseignantController.getSalles();
+                    enseignant.setPreference(salles.get(choixListe(salles)-1));
                     break;
                 case 8:
                     break;
@@ -166,11 +165,11 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
                     System.out.println("choix invalide recommencez ");
             }
         } while (ch!=8);
-        Enseignant EnseignantVerif = EnseignantController.update(Enseignant);
-        if(EnseignantVerif == null){
+        Enseignant enseignantVerif = enseignantController.update(enseignant);
+        if(enseignantVerif == null){
             affMsg("La Enseignant est vide.");
         }
-        else if(EnseignantVerif.equals(Enseignant)){
+        else if(enseignantVerif.equals(enseignant)){
             affMsg("Aucune modification n'a ete effectue.");
         }
         else{
@@ -178,10 +177,10 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
         }
     }
     public void suppression() {
-        List<Enseignant> Enseignants = EnseignantController.getAll();
-        int idrech = choixListe(Enseignants);
-        Enseignant Enseignant = Enseignants.get(idrech-1);
-        boolean isRemoved = EnseignantController.remove(Enseignant);
+        List<Enseignant> enseignants = enseignantController.getAll();
+        int idrech = choixListe(enseignants);
+        Enseignant enseignant = enseignants.get(idrech-1);
+        boolean isRemoved = enseignantController.remove(enseignant);
         if(isRemoved){
             affMsg("Suppression effectuee");
         }
@@ -191,18 +190,18 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
     }
 
     private void tous() {
-        List<Enseignant> Enseignants = EnseignantController.getAll();
-        affList(Enseignants);
-        if(Enseignants.isEmpty()){
+        List<Enseignant> enseignants = enseignantController.getAll();
+        affList(enseignants);
+        if(enseignants.isEmpty()){
             affMsg("La liste est vide.");
         }
     }
     @Override
     public Enseignant selectionner() {
-        update(EnseignantController.getAll());
+        update(enseignantController.getAll());
         int nl = choixListe(lc);
-        Enseignant Enseignant = lc.get(nl - 1);
-        return Enseignant;
+        Enseignant enseignant = lc.get(nl - 1);
+        return enseignant;
     }
 }
 

@@ -5,11 +5,11 @@ import Ecole.Enseignant;
 import java.util.List;
 
 public abstract class EnseignantAbstractView implements Observer {
-    protected EnseignantController EnseignantController;
+    protected EnseignantController enseignantController;
     protected List<Enseignant> lc;
 
     public void setController(EnseignantController EnseignantController){
-        this.EnseignantController=EnseignantController;
+        this.enseignantController=EnseignantController;
     }
 
     public abstract void affMsg(String msg);
