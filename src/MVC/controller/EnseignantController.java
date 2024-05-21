@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnseignantController {
-    private DAOEnseignant model;
+    private DAO<Enseignant> model;
     private EnseignantAbstractView view;
 
-    public EnseignantController(DAOEnseignant model, EnseignantAbstractView view) {
+    public EnseignantController(DAO<Enseignant> model, EnseignantAbstractView view) {
         this.model = model;
         this.view = view;
         this.view.setController(this);
@@ -25,33 +25,13 @@ public class EnseignantController {
         Enseignant nelt = model.add(elt);
         return nelt;
     }
-
-
     public boolean remove(Enseignant elt) {
         return model.remove(elt);
     }
     public Enseignant update(Enseignant elt) {
         return model.update(elt);
     }
-
-    public Enseignant search(Enseignant rech) {
-        return  model.read(rech);
+    public Enseignant read(String matricule) {
+        return model.read(matricule);
     }
-    public ArrayList<Infos> listerinfos(Enseignant c) {
-        return model.listerInfos(c);
-    }
-
-    public List<EnseignantEtHeure> listerLivre(Enseignant c, Enseignant en) {
-
-        return model.listerEnseigant(c,en);
-    }
-
-    public List<CoursEtHeure> listerOuvrages(Enseignant c, Cours co) {
-        return model.listerCours(c,co);
-    }
-    public List<SalleEtHeure> listerLivre(Enseignant c, Salle sa) {
-
-        return model.listerSalles(c,sa);
-    }
-
 }

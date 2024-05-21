@@ -67,4 +67,12 @@ public class Salle {
     public int hashCode() {
         return Objects.hash(sigle, capacite);
     }
+
+    public void setSigle(int sigle) {
+        this.sigle = sigle;
+    }
+
+    public void setCapacite(int capacite) {
+        this.capacite = capacite;
+    }
 }

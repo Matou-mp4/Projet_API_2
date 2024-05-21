@@ -1,6 +1,8 @@
 package MVC.View;
 
 import Ecole.*;
+import MVC.controller.ClasseController;
+import MVC.controller.EnseignantController;
 import myConnectionDB.DBConnection;
 
 import java.sql.*;
@@ -8,26 +10,22 @@ import java.util.List;
 import java.util.Scanner;
 
 import static utilitaires.Utilitaire.choixListe;
+import static utilitaires.Utilitaire.lireInt;
 
 
 public class InfosViewConsole extends InfosAbstractView {
     private Scanner sc = new Scanner(System.in);
-    private Connection dbConnect;
     @Override
     public void affMsg(String msg) {
         System.out.println("information:" + msg);
     }
     @Override
     public void menu() {
-        dbConnect = DBConnection.getConnection();
-        if (dbConnect == null) {
-            System.exit(1);
-        }
-        System.out.println("connexion établie");
+        int ch;
         do {
             System.out.println("1.ajout\n2.recherche\n3.modification\n4.suppression\n5.tous\n6.fin");
             System.out.println("choix : ");
-            int ch = sc.nextInt();
+            ch = lireInt();
             sc.skip("\n");
             switch (ch) {
                 case 1:
@@ -46,131 +44,120 @@ public class InfosViewConsole extends InfosAbstractView {
                     tous();
                     break;
                 case 6:
-                    System.exit(0);
                     break;
                 default:
                     System.out.println("choix invalide recommencez ");
             }
-        } while (true);
+        } while (ch!=6);
 
     }
+
 
     @Override
     public void affList(List l) {
-
+        affList(l);
     }
 
     public void ajout() {
-        System.out.print("Année :");
-        Integer annee = sc.nextInt();
-        sc.skip("\n");
-        System.out.print("Sigle :");
-        String sigle = sc.nextLine();
-        System.out.print("Specialite :");
-        String specialite = sc.nextLine();
-        System.out.print("Nombre d'élèves :");
-        Integer nbreEleves = sc.nextInt();
-        String query1 = "insert into API_Infos(annee,sigle,specialite,nbreeleves) values(?,?,?,?)";
-        String query2 = "select idInfos from API_Infos where annee= ? and sigle =?";
-        try(PreparedStatement pstm1= dbConnect.prepareStatement(query1);
-            PreparedStatement pstm2= dbConnect.prepareStatement(query2);
-        ){
-            pstm1.setInt(1,annee);
-            pstm1.setString(2,sigle);
-            pstm1.setString(3,specialite);
-            pstm1.setInt(4,nbreEleves);
-            int n = pstm1.executeUpdate();
-            System.out.println(n+" ligne insérée");
-            if(n==1){
-                pstm2.setInt(1,annee);
-                pstm2.setString(2,sigle);
-                ResultSet rs= pstm2.executeQuery();
-                if(rs.next()){
-                    int idInfos= rs.getInt(1);
-                    System.out.println("idclient = "+idInfos);
-                }
-                else System.out.println("record introuvable");
-            }
-
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
+        //todo:trouver une solution
+        System.out.print("Classe souhaitee :");
+        Classe classe = choixListe(ClasseController.getAll())-1;
+        System.out.print("Cours souhaite :");
+        Cours cours = choixListe(CoursController.getAll())-1;
+        System.out.print("Enseignant souhaite :");
+        Enseignant enseignant = choixListe(EnseignantController.getAll())-1;
+        System.out.print("Salle souhaitee :");
+        Salle salle = choixListe(SalleController.getAll())-1;
+        System.out.print("nbre d'heures souhaitees :");
+        int nbreHeures = lireInt();
+        Infos Infos = new Infos(nbreHeures,cours,enseignant,salle,classe);
+        Infos cl = InfosController.add(Infos);
+        if(cl==null) affMsg("La Infos recherchee n'existe pas");
+        else{
+            affMsg(cl.toString());
         }
     }
 
 
     public void recherche() {
-
-        System.out.println("id de la Infos recherché ");
-        int idrech = sc.nextInt();
-        String query = "select * from API_Infos where idInfos = ?";
-        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setInt(1,idrech);
-            ResultSet rs = pstm.executeQuery();
-            if(rs.next()){
-                int annee = rs.getInt(2);
-                String sigle = rs.getString(5);
-                int nbreEleves = rs.getInt(4);
-                String specialite = rs.getString(3);
-                Infos cl = new Infos(idrech,sigle,specialite,annee,nbreEleves);
-                System.out.println(cl);
-            }
-            else System.out.println("record introuvable");
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
+        System.out.println("id de l'infos recherché ");
+        int idrech = lireInt();
+        Infos infos = InfosController.read(idrech);
+        if(infos==null) affMsg("La Infos recherchee n'existe pas");
+        else{
+            affMsg(infos.toString());
         }
-
     }
-
+    //todo:arranger ca...
     public void modification() {
-        System.out.println("id de la Infos recherchée ");
-        int idrech = sc.nextInt();
-        sc.skip("\n");
-        System.out.println("nouveau nombre d'élève : ");
-        int nbreEleves = sc.nextInt();
-        String query = "update API_Infos set nbreeleves=? where idInfos = ?";
-        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setInt(1,nbreEleves);
-            pstm.setInt(2,idrech);
-            int n = pstm.executeUpdate();
-            if(n!=0) System.out.println(n+ "ligne mise à jour");
-            else System.out.println("record introuvable");
-
-        } catch (SQLException e) {
-            System.out.println("erreur sql :" + e);
+        List<Infos> Infoss = InfosController.getAll();
+        int idrech = choixListe(Infoss);
+        Infos Infos = Infoss.get(idrech-1);
+        int ch;
+        do {
+            System.out.println("1.Classe\n2.Cours\n3.Enseignant\n4.Salle\n5.Nbre d'heures\n6.Fin");
+            System.out.println("choix : ");
+            ch = lireInt();
+            sc.skip("\n");
+            switch (ch) {
+                case 1:
+                    System.out.println("nouvelle Classe : ");
+                    Classe classe = choixListe(ClasseController.getAll())-1;
+                    Infos.setClasse(classe);
+                    break;
+                case 2:
+                    System.out.println("nouveau Cours : ");
+                    Cours cours = choixListe(CoursController.getAll())-1;
+                    Infos.setCours(cours);
+                    break;
+                case 3:
+                    System.out.println("nouvel Enseignant : ");
+                    Enseignant enseignant = choixListe(EnseignantController.getAll())-1;
+                    Infos.setEnseignant(enseignant);
+                    break;
+                case 4:
+                    System.out.println("nouvelle Salle : ");
+                    Salle salle = choixListe(SalleController.getAll())-1;
+                    Infos.setSalle(salle);
+                    break;
+                case 5:
+                    System.out.println("nouveau nbre d'heures");
+                    int nbreHeures = lireInt();
+                    Infos.setNbreHeures(nbreHeures);
+                    break;
+                default:
+                    System.out.println("choix invalide recommencez ");
+            }
+        } while (ch!=5);
+        Infos InfosVerif = InfosController.update(Infos);
+        if(InfosVerif == null){
+            affMsg("La Infos est vide.");
+        }
+        else if(InfosVerif.equals(Infos)){
+            affMsg("Aucune modification n'a ete effectue.");
+        }
+        else{
+            affMsg("modification effectuee");
         }
     }
     public void suppression() {
-        System.out.println("id de la Infos recherchée ");
-        int idrech = sc.nextInt();
-        String query = "delete from API_Infos where idInfos = ?";
-        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setInt(1,idrech);
-            int n = pstm.executeUpdate();
-            if(n!=0) System.out.println(n+ "ligne supprimée");
-            else System.out.println("record introuvable");
-
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
+        List<Infos> Infoss = InfosController.getAll();
+        int idrech = choixListe(Infoss);
+        Infos Infos = Infoss.get(idrech-1);
+        boolean isRemoved = InfosController.remove(Infos);
+        if(isRemoved){
+            affMsg("Suppression effectuee");
         }
-
+        else{
+            affMsg("Suppression non effectuee");
+        }
     }
 
     private void tous() {
-        String query="select * from API_Infos";
-        try(Statement stm = dbConnect.createStatement()) {
-            ResultSet rs = stm.executeQuery(query);
-            while(rs.next()){
-                int idInfos = rs.getInt(1);
-                String sigle = rs.getString(5);
-                String specialite = rs.getString(3);
-                int annee = rs.getInt(2);
-                int nbreEleves = rs.getInt(4);
-                Infos cl = new Infos(idInfos,sigle,specialite,annee,nbreEleves);
-                System.out.println(cl);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
+        List<Infos> Infoss = InfosController.getAll();
+        affList(Infoss);
+        if(Infoss.isEmpty()){
+            affMsg("La liste est vide.");
         }
     }
     @Override

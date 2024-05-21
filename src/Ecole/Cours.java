@@ -29,6 +29,14 @@ public class Cours {
         return code;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
+    }
+
     /**
      *Verification de l'égalité de deux cours
      * @param o

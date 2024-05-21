@@ -21,7 +21,7 @@ public class ModelSalleDB extends DAO<Salle> {
         String query1 = "insert into API_Salle(sigle,capacite) values(?,?)";
         try(PreparedStatement pstm1= dbConnect.prepareStatement(query1);
         ){
-            pstm1.setString(1, elt.getSigle());
+            pstm1.setInt(1, elt.getSigle());
             pstm1.setInt(2,elt.getCapacite());
             int n = pstm1.executeUpdate();
             System.out.println(n+" ligne insérée");
@@ -36,7 +36,7 @@ public class ModelSalleDB extends DAO<Salle> {
     public boolean remove(Salle elt) {
         String query = "delete from API_Salle where sigle = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setString(1, elt.getSigle());
+            pstm.setInt(1, elt.getSigle());
             int n = pstm.executeUpdate();
             if(n!=0){
                 System.out.println(n+ "ligne supprimée");
@@ -55,7 +55,7 @@ public class ModelSalleDB extends DAO<Salle> {
         String query = "update API_Salle set capacite=? where sigle = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,elt.getCapacite());
-            pstm.setString(2, elt.getSigle());
+            pstm.setInt(2, elt.getSigle());
             int n = pstm.executeUpdate();
             if(n!=0){
                 System.out.println(n+ "ligne mise à jour");
@@ -70,15 +70,15 @@ public class ModelSalleDB extends DAO<Salle> {
     }
 
     @Override
-    public Salle read(int rech) {
+    public Salle read(String rech) {
         return null;
     }
 
     @Override
-    public Salle read(String rech) {
+    public Salle read(int rech) {
         String query = "select * from API_Salle where sigle = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setString(1,rech);
+            pstm.setInt(1,rech);
             ResultSet rs = pstm.executeQuery();
             if(rs.next()){
                 int capacite = rs.getInt(2);
@@ -100,7 +100,7 @@ public class ModelSalleDB extends DAO<Salle> {
         try(Statement stm = dbConnect.createStatement()) {
             ResultSet rs = stm.executeQuery(query);
             while(rs.next()){
-                String sigle = rs.getString(1);
+                int sigle = rs.getInt(1);
                 int capacite = rs.getInt(2);
                 Salle salle = new Salle(sigle,capacite);
                 salles.add(salle);

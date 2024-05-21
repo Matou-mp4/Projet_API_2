@@ -8,26 +8,22 @@ import java.util.List;
 import java.util.Scanner;
 
 import static utilitaires.Utilitaire.choixListe;
+import static utilitaires.Utilitaire.lireInt;
 
 
 public class SalleViewConsole extends SalleAbstractView {
     private Scanner sc = new Scanner(System.in);
-    private Connection dbConnect;
     @Override
     public void affMsg(String msg) {
         System.out.println("information:" + msg);
     }
     @Override
     public void menu() {
-        dbConnect = DBConnection.getConnection();
-        if (dbConnect == null) {
-            System.exit(1);
-        }
-        System.out.println("connexion établie");
+        int ch;
         do {
             System.out.println("1.ajout\n2.recherche\n3.modification\n4.suppression\n5.tous\n6.fin");
             System.out.println("choix : ");
-            int ch = sc.nextInt();
+            ch = lireInt();
             sc.skip("\n");
             switch (ch) {
                 case 1:
@@ -46,106 +42,95 @@ public class SalleViewConsole extends SalleAbstractView {
                     tous();
                     break;
                 case 6:
-                    System.exit(0);
                     break;
                 default:
                     System.out.println("choix invalide recommencez ");
             }
-        } while (true);
+        } while (ch!=6);
 
     }
 
     @Override
     public void affList(List l) {
-
+        affList(l);
     }
 
     public void ajout() {
         System.out.print("Sigle :");
-        String sigle = sc.nextLine();
+        Integer sigle = lireInt();
         sc.skip("\n");
-        System.out.print("Capacité :");
-        Integer capacite = sc.nextInt();
-        String query1 = "insert into API_Salle(sigle,capacite) values(?,?)";
-        try(PreparedStatement pstm1= dbConnect.prepareStatement(query1);
-        ){
-            pstm1.setString(1,sigle);
-            pstm1.setInt(2,capacite);
-            int n = pstm1.executeUpdate();
-            System.out.println(n+" ligne insérée");
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
+        System.out.print("Nombre de place :");
+        int capacite = lireInt();
+        Salle Salle = new Salle(sigle,capacite);
+        Salle cl = SalleController.add(Salle);
+        if(cl==null) affMsg("La Salle recherchee n'existe pas");
+        else{
+            affMsg(cl.toString());
         }
     }
 
 
     public void recherche() {
-
         System.out.println("sigle de la Salle recherché ");
-        String sigle = sc.nextLine();
-        String query = "select * from API_Salle where sigle = ?";
-        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setString(1,sigle);
-            ResultSet rs = pstm.executeQuery();
-            if(rs.next()){
-                int capacite = rs.getInt(2);
-                Salle salle = new Salle(sigle,capacite);
-                System.out.println(salle);
-            }
-            else System.out.println("record introuvable");
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
+        int sigle = lireInt();
+        Salle Salle = SalleController.read(sigle);
+        if(Salle==null) affMsg("La Salle recherchee n'existe pas");
+        else{
+            affMsg(Salle.toString());
         }
-
     }
 
     public void modification() {
-        System.out.println("sigle de la Salle recherchée ");
-        String sigle = sc.nextLine();
-        sc.skip("\n");
-        System.out.println("nouvelle capacité : ");
-        int capacite = sc.nextInt();
-        String query = "update API_Salle set capacite=? where sigle = ?";
-        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setInt(1,capacite);
-            pstm.setString(2,sigle);
-            int n = pstm.executeUpdate();
-            if(n!=0) System.out.println(n+ "ligne mise à jour");
-            else System.out.println("record introuvable");
-
-        } catch (SQLException e) {
-            System.out.println("erreur sql :" + e);
+        List<Salle> Salles = SalleController.getAll();
+        int idrech = choixListe(Salles);
+        Salle Salle = Salles.get(idrech-1);
+        int ch;
+        do {
+            System.out.println("1.capacite\n2.fin");
+            System.out.println("choix : ");
+            ch = lireInt();
+            sc.skip("\n");
+            switch (ch) {
+                case 1:
+                    System.out.println("nouvelle annee : ");
+                    int capacite = lireInt();
+                    Salle.setCapacite(capacite);
+                    break;
+                case 2:
+                    break;
+                default:
+                    System.out.println("choix invalide recommencez ");
+            }
+        } while (ch!=5);
+        Salle SalleVerif = SalleController.update(Salle);
+        if(SalleVerif == null){
+            affMsg("La Salle est vide.");
+        }
+        else if(SalleVerif.equals(Salle)){
+            affMsg("Aucune modification n'a ete effectue.");
+        }
+        else{
+            affMsg("modification effectuee");
         }
     }
     public void suppression() {
-        System.out.println("sigle de la Salle recherchée ");
-        String sigle = sc.nextLine();
-        String query = "delete from API_Salle where sigle = ?";
-        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setString(1,sigle);
-            int n = pstm.executeUpdate();
-            if(n!=0) System.out.println(n+ "ligne supprimée");
-            else System.out.println("record introuvable");
-
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
+        List<Salle> Salles = SalleController.getAll();
+        int idrech = choixListe(Salles);
+        Salle Salle = Salles.get(idrech-1);
+        boolean isRemoved = SalleController.remove(Salle);
+        if(isRemoved){
+            affMsg("Suppression effectuee");
         }
-
+        else{
+            affMsg("Suppression non effectuee");
+        }
     }
 
     private void tous() {
-        String query="select * from API_Salle";
-        try(Statement stm = dbConnect.createStatement()) {
-            ResultSet rs = stm.executeQuery(query);
-            while(rs.next()){
-                String sigle = rs.getString(1);
-                int capacite = rs.getInt(2);
-                Salle cl = new Salle(sigle,capacite);
-                System.out.println(cl);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
+        List<Salle> Salles = SalleController.getAll();
+        affList(Salles);
+        if(Salles.isEmpty()){
+            affMsg("La liste est vide.");
         }
     }
     @Override
