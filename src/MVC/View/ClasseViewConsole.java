@@ -2,6 +2,7 @@ package MVC.View;
 
 import Ecole.*;
 import myConnectionDB.DBConnection;
+import utilitaires.Utilitaire;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ public class ClasseViewConsole extends ClasseAbstractView {
             System.out.println("1.ajout\n2.recherche\n3.modification\n4.suppression\n5.tous\n6.fin");
             System.out.println("choix : ");
             ch = lireInt();
-            sc.skip("\n");
             switch (ch) {
                 case 1:
                     ajout();
@@ -52,13 +52,12 @@ public class ClasseViewConsole extends ClasseAbstractView {
 
     @Override
     public void affList(List l) {
-        affList(l);
+        Utilitaire.affListe(l);
     }
 
     public void ajout() {
         System.out.print("Année :");
         Integer annee = lireInt();
-        sc.skip("\n");
         System.out.print("Sigle :");
         String sigle = sc.nextLine();
         System.out.print("Specialite :");

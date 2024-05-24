@@ -2,6 +2,7 @@ package MVC.View;
 
 import Ecole.*;
 import myConnectionDB.DBConnection;
+import utilitaires.Utilitaire;
 
 import java.sql.*;
 import java.util.List;
@@ -52,7 +53,7 @@ public class CoursViewConsole extends CoursAbstractView {
 
     @Override
     public void affList(List l) {
-
+        Utilitaire.affListe(l);
     }
 
     public void ajout() {

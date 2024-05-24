@@ -4,6 +4,7 @@ import Ecole.*;
 import MVC.controller.ClasseController;
 import MVC.controller.EnseignantController;
 import myConnectionDB.DBConnection;
+import utilitaires.Utilitaire;
 
 import java.sql.*;
 import java.util.List;
@@ -55,11 +56,10 @@ public class InfosViewConsole extends InfosAbstractView {
 
     @Override
     public void affList(List l) {
-        affList(l);
+        Utilitaire.affListe(l);
     }
 
     public void ajout() {
-        //todo:trouver une solution
         System.out.print("Classe souhaitee :");
         List<Classe> classes = infosController.getClasses();
         Classe classe = classes.get(choixListe(classes)-1);
@@ -92,7 +92,6 @@ public class InfosViewConsole extends InfosAbstractView {
             affMsg(infos.toString());
         }
     }
-    //todo:arranger ca...
     public void modification() {
         List<Infos> Infoss = infosController.getAll();
         int idrech = choixListe(Infoss);

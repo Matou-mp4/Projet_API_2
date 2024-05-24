@@ -5,6 +5,7 @@ import MVC.View.SalleAbstractView;
 import Ecole.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class SalleController {
@@ -18,6 +19,12 @@ public class SalleController {
     }
     public List<Salle> getAll(){
         List<Salle> l = model.getAll();
+        l.sort(new Comparator<Salle>() {
+            @Override
+            public int compare(Salle s1, Salle s2) {
+                return Integer.compare(s1.getSigle(),s2.getSigle());
+            }
+        });
         return l;
     }
 

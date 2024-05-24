@@ -17,7 +17,7 @@ public class Classe {
     /**
      * l'id, l'annee et le nombre de l'élève de la classe
      */
-    protected int idClasse, annee, nbreEleves;
+    protected Integer idClasse, annee, nbreEleves;
     /**
      * Liste d'informations de la classe
      * Chaque infos contient :

@@ -5,6 +5,7 @@ import MVC.View.EnseignantAbstractView;
 import Ecole.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class EnseignantController {
@@ -27,6 +28,12 @@ public class EnseignantController {
 
     public List<Enseignant> getAll(){
         List<Enseignant> l = model.getAll();
+        l.sort(new Comparator<Enseignant>() {
+            @Override
+            public int compare(Enseignant e1, Enseignant e2) {
+                return e1.getMatricule().compareTo(e2.getMatricule());
+            }
+        });
         return l;
     }
 

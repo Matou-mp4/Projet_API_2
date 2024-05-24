@@ -6,6 +6,7 @@ import MVC.View.SalleAbstractView;
 import MVC.controller.EnseignantController;
 import MVC.controller.SalleController;
 import myConnectionDB.DBConnection;
+import utilitaires.Utilitaire;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -60,7 +61,7 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
 
     @Override
     public void affList(List l) {
-
+        Utilitaire.affListe(l);
     }
 
     public void ajout() {

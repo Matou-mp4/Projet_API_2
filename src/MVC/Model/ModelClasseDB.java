@@ -19,7 +19,7 @@ public class ModelClasseDB extends DAO<Classe> implements DAOSpecialClasse{
     @Override
     public Classe add(Classe elt) {
         String query1 = "insert into API_CLASSE(annee,sigle,specialite,nbreeleves) values(?,?,?,?)";
-        String query2 = "select idclasse from API_CLASSE where annee= ? and sigle =?";
+        String query2 = "select idclasse from API_CLASSE where annee= ? and sigle =? order by idclasse";
         try(PreparedStatement pstm1= dbConnect.prepareStatement(query1);
             PreparedStatement pstm2= dbConnect.prepareStatement(query2);
         ){
