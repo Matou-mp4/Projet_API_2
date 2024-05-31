@@ -92,7 +92,7 @@ public class ClasseController{
     public Classe modifCours(Classe c, Cours co, int heures) {
         return ((DAOSpecialClasse)model).modifCours(c,co,heures);
     }
-    public Classe suppCours(Classe c, Cours co){
+    public boolean suppCours(Classe c, Cours co){
         return ((DAOSpecialClasse)model).suppCours(c,co);
     }
     public boolean salleCapaciteOK(Classe c, Salle salle) {

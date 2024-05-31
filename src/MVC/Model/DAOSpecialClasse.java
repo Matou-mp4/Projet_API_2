@@ -14,7 +14,7 @@ public interface DAOSpecialClasse {
     public abstract Classe modifCours(Classe c,Cours co, Enseignant e);
     public abstract Classe modifCours(Classe c,Cours co, Salle s);
     public abstract Classe modifCours(Classe c,Cours co, int heures);
-    public abstract Classe suppCours(Classe c,Cours co);
+    public abstract boolean suppCours(Classe c,Cours co);
     public abstract boolean salleCapaciteOK(Classe c,Salle salle);
 
 }

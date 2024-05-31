@@ -19,7 +19,7 @@ public class ModelClasseDB extends DAO<Classe> implements DAOSpecialClasse{
         String query1 = "insert into API_CLASSE(annee,sigle,specialite,nbreeleves) values(?,?,?,?)";
         String query2 = "select idclasse from API_CLASSE where annee= ? and sigle =? order by idclasse";
         try(PreparedStatement pstm1= dbConnect.prepareStatement(query1);
-            PreparedStatement pstm2= dbConnect.prepareStatement(query2);
+            PreparedStatement pstm2= dbConnect.prepareStatement(query2)
         ){
             pstm1.setInt(1,elt.getAnnee());
             pstm1.setString(2, elt.getSigle());
@@ -156,30 +156,100 @@ public class ModelClasseDB extends DAO<Classe> implements DAOSpecialClasse{
     @Override
     public Classe addCours(Classe c, Cours co, int heures) {
         c.addCours(co,heures);
+        String query="insert into api_infos(idclasse,code,matricule,sigle,nbreheures) values(?,?,?,?,?)";
+        try(PreparedStatement pstm1= dbConnect.prepareStatement(query);
+        ){
+            pstm1.setInt(1,c.getIdClasse());
+            pstm1.setString(2,co.getCode() );
+            pstm1.setString(3,"x");
+            pstm1.setInt(4,0);
+            pstm1.setInt(5,heures);
+            int n = pstm1.executeUpdate();
+            System.out.println(n+" ligne insérée");
+        } catch (SQLException e) {
+            System.out.println("erreur sql :"+e);
+        }
         return c;
     }
+    // Les elements ajoutes dans la table api_infos ne pouvant pas avoir de valeur null, le matricule aura x en valeur automatique et sigle aura 0
 
     @Override
     public Classe modifCours(Classe c, Cours co, Enseignant e) {
         c.modifCours(co,e);
-        return c;
+        String query = "update API_INFOS  set enseignant=? where idclasse = ? and code = ?";
+        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setString(1,e.getMatricule());
+            pstm.setInt(2,c.getIdClasse());
+            pstm.setString(3,co.getCode());
+            int n = pstm.executeUpdate();
+            if(n!=0){
+                System.out.println(n+ "ligne mise à jour");
+                return c;
+            }
+            else System.out.println("record introuvable");
+        } catch (SQLException ex) {
+            System.out.println("erreur sql :" + ex);
+        }
+        return null;
     }
 
     @Override
     public Classe modifCours(Classe c, Cours co, Salle s) {
         c.modifCours(co,s);
-        return c;
+        String query = "update API_INFOS  set sigle=? where idclasse = ? and code = ?";
+        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1,s.getSigle());
+            pstm.setInt(2,c.getIdClasse());
+            pstm.setString(3,co.getCode());
+            int n = pstm.executeUpdate();
+            if(n!=0){
+                System.out.println(n+ "ligne mise à jour");
+                return c;
+            }
+            else System.out.println("record introuvable");
+        } catch (SQLException ex) {
+            System.out.println("erreur sql :" + ex);
+        }
+        return null;
     }
 
     @Override
     public Classe modifCours(Classe c, Cours co, int heures) {
         c.modifCours(co,heures);
-        return c;
+        String query = "update API_INFOS  set nbreheures=? where idclasse = ? and code = ?";
+        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1,heures);
+            pstm.setInt(2,c.getIdClasse());
+            pstm.setString(3,co.getCode());
+            int n = pstm.executeUpdate();
+            if(n!=0){
+                System.out.println(n+ "ligne mise à jour");
+                return c;
+            }
+            else System.out.println("record introuvable");
+        } catch (SQLException ex) {
+            System.out.println("erreur sql :" + ex);
+        }
+        return null;
     }
 
     @Override
-    public Classe suppCours(Classe c, Cours co){
-        return c;
+    public boolean suppCours(Classe c, Cours co){
+        String query = "delete from API_INFOS where idclasse = ? and code = ?";
+        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1,c.getIdClasse());
+            pstm.setString(2,co.getCode());
+            int n = pstm.executeUpdate();
+            if(n!=0){
+                System.out.println(n+ "ligne supprimée");
+                return true;
+            }
+            else System.out.println("record introuvable");
+
+        } catch (SQLException e) {
+            System.out.println("erreur sql :"+e);
+        }
+        return false;
     }
 
     @Override
