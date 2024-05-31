@@ -2,6 +2,8 @@ package MVC.View;
 import MVC.observer.Observer;
 import MVC.controller.ClasseController;
 import Ecole.Classe;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ClasseAbstractView implements Observer {

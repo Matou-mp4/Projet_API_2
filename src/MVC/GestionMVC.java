@@ -45,6 +45,9 @@ public class GestionMVC {
         coursController = new CoursController(modelCours,coursAbstractView);
 
         enseignantController.setSalleController(salleController);
+        classeController.setCoursController(coursController);
+        classeController.setEnseignantController(enseignantController);
+        classeController.setSalleController(salleController);
 
         modelSalle.addObserver(salleAbstractView);
         modelClasse.addObserver(classeAbstractView);

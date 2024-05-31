@@ -82,7 +82,7 @@ public class Classe {
     /**
      * fonction calculant le nombre d'heures total puis l'affiche.
      */
-    public void nbreHeuresTot() {
+    public int nbreHeuresTot() {
         int cptHeures = 0;
         if (listeInfosVerif()) {
             for (Infos element : listeInfos) {
@@ -90,6 +90,7 @@ public class Classe {
             }
             System.out.println("Nombre d'heures total : " + cptHeures + ".");
         }
+        return cptHeures;
     }
 
     /**
@@ -97,7 +98,7 @@ public class Classe {
      * Si un enseignant existe déjà dans la liste d'enseignants et de nombre d'heures, la fonction ajoute le nombre d'heures associées
      * à cet enseignant. Sinon, elle crée une nouvelle entrée pour l'enseignant avec le nombre d'heures spécifié.
      */
-    public void listeEnseignantsEtHeures() {
+    public ArrayList<EnseignantEtHeure> listeEnseignantsEtHeures() {
         EnseignantEtHeure ajout = new EnseignantEtHeure();
         //verifier si la liste n'est pas vide
         if (listeInfosVerif()) {
@@ -116,6 +117,7 @@ public class Classe {
                 }
             }
         }
+        return listeEnseigantEtHeure;
     }
 
     /**
@@ -123,7 +125,7 @@ public class Classe {
      * Si une salle existe déjà dans la liste des salles et de nombre d'heures, la fonction ajoute le nombre d'heures associées
      * à cette salle. Sinon, elle crée une nouvelle entrée pour la salle avec le nombre d'heures spécifié.
      */
-    public void listeSallesEtHeures() {
+    public ArrayList<SalleEtHeure> listeSallesEtHeures() {
         SalleEtHeure ajout = new SalleEtHeure();
         if (listeInfosVerif()) {
             for (Infos element : listeInfos) {
@@ -141,6 +143,7 @@ public class Classe {
                 }
             }
         }
+        return listeSalleEtHeure;
     }
 
     /**
@@ -148,7 +151,7 @@ public class Classe {
      * Si un cours existe déjà dans la liste des cours et de nombre d'heures, la fonction ajoute le nombre d'heures associées
      * à ce cours. Sinon, elle crée une nouvelle entrée pour le cours avec le nombre d'heures spécifié.
      */
-    public void listeCoursEtHeures() {
+    public ArrayList<CoursEtHeure> listeCoursEtHeures() {
         CoursEtHeure ajout = new CoursEtHeure();
         if (listeInfosVerif()) {
             for (Infos element : listeInfos) {
@@ -166,6 +169,7 @@ public class Classe {
                 }
             }
         }
+        return listeCoursEtHeure;
     }
 
     /**
@@ -312,6 +316,10 @@ public class Classe {
 
     public void setNbreEleves(int nbreEleves) {
         this.nbreEleves = nbreEleves;
+    }
+
+    public ArrayList<Infos> getListeInfos() {
+        return listeInfos;
     }
 
     @Override

@@ -5,8 +5,6 @@ import myConnectionDB.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-//todo: supprimmer l'implementation
 public class ModelClasseDB extends DAO<Classe> implements DAOSpecialClasse{
     protected Connection dbConnect;
     public ModelClasseDB(){
@@ -136,22 +134,60 @@ public class ModelClasseDB extends DAO<Classe> implements DAOSpecialClasse{
     }
 
     @Override
-    public ArrayList<CoursEtHeure> listerCours(Classe c,Cours co) {
-        return null;
+    public int nbreHeuresTot(Classe c){
+        return c.nbreHeuresTot();
     }
 
     @Override
-    public ArrayList<SalleEtHeure> listerSalles(Classe c,Salle sa) {
-        return null;
+    public ArrayList<EnseignantEtHeure> listeEnseignantsEtHeures(Classe c) {
+       return c.listeEnseignantsEtHeures();
     }
 
     @Override
-    public ArrayList<EnseignantEtHeure> listerEnseigant(Classe c,Enseignant en) {
-        return null;
+    public ArrayList<SalleEtHeure> listeSallesEtHeures(Classe c) {
+        return c.listeSallesEtHeures();
     }
 
+    @Override
+    public ArrayList<CoursEtHeure> listeCoursEtHeures(Classe c) {
+        return c.listeCoursEtHeures();
+    }
+
+    @Override
+    public Classe addCours(Classe c, Cours co, int heures) {
+        c.addCours(co,heures);
+        return c;
+    }
+
+    @Override
+    public Classe modifCours(Classe c, Cours co, Enseignant e) {
+        c.modifCours(co,e);
+        return c;
+    }
+
+    @Override
+    public Classe modifCours(Classe c, Cours co, Salle s) {
+        c.modifCours(co,s);
+        return c;
+    }
+
+    @Override
+    public Classe modifCours(Classe c, Cours co, int heures) {
+        c.modifCours(co,heures);
+        return c;
+    }
+
+    @Override
+    public Classe suppCours(Classe c, Cours co){
+        return c;
+    }
+
+    @Override
+    public boolean salleCapaciteOK(Classe c, Salle salle) {
+        return c.salleCapaciteOK(salle);
+    }
     @Override
     public ArrayList<Infos> listerInfos(Classe c) {
-        return null;
+        return c.getListeInfos();
     }
 }
