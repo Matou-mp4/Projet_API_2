@@ -56,6 +56,7 @@ public class ModelCoursDB extends DAO<Cours> {
     @Override
     public Cours update(Cours elt) {
         String query = "update API_Cours set intitule=? where code = ?";
+        System.out.println(elt.getCode()+" "+elt.getIntitule());
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1, elt.getIntitule());
             pstm.setString(2, elt.getCode());
@@ -102,7 +103,7 @@ public class ModelCoursDB extends DAO<Cours> {
             ResultSet rs = stm.executeQuery(query);
             while (rs.next()) {
                 String code = rs.getString(1);
-                String intitule = rs.getString(5);
+                String intitule = rs.getString(2);
                 Cours cours = new Cours(code, intitule);
                 lCours.add(cours);
             }

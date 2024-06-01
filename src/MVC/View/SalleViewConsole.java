@@ -25,7 +25,6 @@ public class SalleViewConsole extends SalleAbstractView {
             System.out.println("1.ajout\n2.recherche\n3.modification\n4.suppression\n5.tous\n6.fin");
             System.out.println("choix : ");
             ch = lireInt();
-            sc.skip("\n");
             switch (ch) {
                 case 1:
                     ajout();
@@ -59,7 +58,6 @@ public class SalleViewConsole extends SalleAbstractView {
     public void ajout() {
         System.out.print("Sigle :");
         Integer sigle = lireInt();
-        sc.skip("\n");
         System.out.print("Nombre de place :");
         int capacite = lireInt();
         Salle Salle = new Salle(sigle,capacite);
@@ -72,7 +70,7 @@ public class SalleViewConsole extends SalleAbstractView {
 
 
     public void recherche() {
-        System.out.println("sigle de la Salle recherché ");
+        System.out.println("sigle de la Salle recherché : ");
         int sigle = lireInt();
         Salle Salle = salleController.read(sigle);
         if(Salle==null) affMsg("La Salle recherchee n'existe pas");
@@ -89,13 +87,12 @@ public class SalleViewConsole extends SalleAbstractView {
         Salle Salle = Salles.get(idrech-1);
         int ch;
         do {
-            System.out.println("1.capacite\n2.fin");
+            System.out.println("1. Capacite\n2. Retour");
             System.out.println("choix : ");
             ch = lireInt();
-            sc.skip("\n");
             switch (ch) {
                 case 1:
-                    System.out.println("nouvelle annee : ");
+                    System.out.println("nouvelle capacite : ");
                     int capacite = lireInt();
                     Salle.setCapacite(capacite);
                     break;
@@ -104,7 +101,7 @@ public class SalleViewConsole extends SalleAbstractView {
                 default:
                     System.out.println("choix invalide recommencez ");
             }
-        } while (ch!=5);
+        } while (ch!=2);
         Salle SalleVerif = salleController.update(Salle);
         if(SalleVerif == null){
             affMsg("La Salle est vide.");

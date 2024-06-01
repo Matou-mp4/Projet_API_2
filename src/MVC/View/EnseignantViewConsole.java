@@ -33,7 +33,6 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
             System.out.println("1.ajout\n2.recherche\n3.modification\n4.suppression\n5.tous\n6.fin");
             System.out.println("choix : ");
             ch = lireInt();
-            sc.skip("\n");
             switch (ch) {
                 case 1:
                     ajout();
@@ -67,14 +66,13 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
     public void ajout() {
         System.out.print("Matricule :");
         String matricule = sc.nextLine();
-        sc.skip("\n");
         System.out.print("nom :");
         String nom = sc.nextLine();
         System.out.print("prenom :");
         String prenom = sc.nextLine();
         System.out.print("tel :");
         String tel = sc.nextLine();
-        System.out.println("charge mensuelle : ");
+        System.out.println("charge semestrielle : ");
         int chargeSem = lireInt();
         System.out.println("salaire mensuel : ");
         BigDecimal salaireMensu = BigDecimal.valueOf(lireDouble());
@@ -99,7 +97,7 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
 
 
     public void recherche() {
-        System.out.println("Matricule de l'Enseignant recherché ");
+        System.out.println("Matricule de l'Enseignant recherché : ");
         String matricule = sc.nextLine();
         Enseignant Enseignant = enseignantController.read(matricule);
         if(Enseignant==null) affMsg("La Enseignant recherchee n'existe pas");
@@ -125,7 +123,7 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
                     enseignant.setNom(nom);
                     break;
                 case 2:
-                    System.out.println("nouveau sigle : ");
+                    System.out.println("nouveau prenom : ");
                     String prenom = sc.nextLine();
                     enseignant.setPrenom(prenom);
                     break;
@@ -168,7 +166,7 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
         } while (ch!=8);
         Enseignant enseignantVerif = enseignantController.update(enseignant);
         if(enseignantVerif == null){
-            affMsg("La Enseignant est vide.");
+            affMsg("L'Enseignant est vide.");
         }
         else if(enseignantVerif.equals(enseignant)){
             affMsg("Aucune modification n'a ete effectue.");

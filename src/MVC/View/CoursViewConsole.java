@@ -25,7 +25,6 @@ public class CoursViewConsole extends CoursAbstractView {
             System.out.println("1.ajout\n2.recherche\n3.modification\n4.suppression\n5.tous\n6.fin");
             System.out.println("choix : ");
             ch = lireInt();
-            sc.skip("\n");
             switch (ch) {
                 case 1:
                     ajout();
@@ -59,7 +58,6 @@ public class CoursViewConsole extends CoursAbstractView {
     public void ajout() {
         System.out.print("Code :");
         String code = sc.nextLine();
-        sc.skip("\n");
         System.out.print("Intitulé :");
         String intitule = sc.nextLine();
         Cours Cours = new Cours(code,intitule);
@@ -87,10 +85,9 @@ public class CoursViewConsole extends CoursAbstractView {
         Cours Cours = Courss.get(idrech-1);
         int ch;
         do {
-            System.out.println("1.annee\n2.fin");
+            System.out.println("1.intitule\n2.fin");
             System.out.println("choix : ");
             ch = lireInt();
-            sc.skip("\n");
             switch (ch) {
                 case 1:
                     System.out.println("nouvel intitule : ");

@@ -27,7 +27,6 @@ public class InfosViewConsole extends InfosAbstractView {
             System.out.println("1.ajout\n2.recherche\n3.modification\n4.suppression\n5.tous\n6.fin");
             System.out.println("choix : ");
             ch = lireInt();
-            sc.skip("\n");
             switch (ch) {
                 case 1:
                     ajout();
@@ -52,27 +51,25 @@ public class InfosViewConsole extends InfosAbstractView {
         } while (ch!=6);
 
     }
-
-
     @Override
     public void affList(List l) {
         Utilitaire.affListe(l);
     }
 
     public void ajout() {
-        System.out.print("Classe souhaitee :");
+        System.out.print("Classe souhaitee : \n");
         List<Classe> classes = infosController.getClasses();
         Classe classe = classes.get(choixListe(classes)-1);
-        System.out.print("Cours souhaite :");
+        System.out.print("Cours souhaite : \n");
         List<Cours> courss = infosController.getCourss();
         Cours cours = courss.get(choixListe(courss)-1);
-        System.out.print("Enseignant souhaite :");
+        System.out.print("Enseignant souhaite : \n");
         List<Enseignant> enseignants = infosController.getEnseignants();
         Enseignant enseignant = enseignants.get(choixListe(enseignants)-1);
-        System.out.print("Salle souhaitee :");
+        System.out.print("Salle souhaitee : \n");
         List<Salle> salles = infosController.getSalles();
         Salle salle = salles.get(choixListe(salles)-1);
-        System.out.print("nbre d'heures souhaitees :");
+        System.out.print("nbre d'heures souhaitees : ");
         int nbreHeures = lireInt();
         Infos Infos = new Infos(nbreHeures,cours,enseignant,salle,classe);
         Infos cl = infosController.add(Infos);
@@ -84,10 +81,10 @@ public class InfosViewConsole extends InfosAbstractView {
 
 
     public void recherche() {
-        System.out.println("id de l'infos recherché ");
+        System.out.println("id de l'infos recherché : ");
         int idrech = lireInt();
         Infos infos = infosController.read(idrech);
-        if(infos==null) affMsg("La Infos recherchee n'existe pas");
+        if(infos==null) affMsg("L'infos recherchee n'existe pas");
         else{
             affMsg(infos.toString());
         }
@@ -101,7 +98,6 @@ public class InfosViewConsole extends InfosAbstractView {
             System.out.println("1.Classe\n2.Cours\n3.Enseignant\n4.Salle\n5.Nbre d'heures\n6.Fin");
             System.out.println("choix : ");
             ch = lireInt();
-            sc.skip("\n");
             switch (ch) {
                 case 1:
                     System.out.println("nouvelle Classe : ");
@@ -132,10 +128,12 @@ public class InfosViewConsole extends InfosAbstractView {
                     int nbreHeures = lireInt();
                     Infos.setNbreHeures(nbreHeures);
                     break;
+                case 6:
+                    break;
                 default:
                     System.out.println("choix invalide recommencez ");
             }
-        } while (ch!=5);
+        } while (ch!=6);
         Infos InfosVerif = infosController.update(Infos);
         if(InfosVerif == null){
             affMsg("La Infos est vide.");

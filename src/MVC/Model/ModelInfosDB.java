@@ -21,7 +21,6 @@ public class ModelInfosDB extends DAO<Infos> {
         String query1 = "insert into API_Infos(idclasse,code,matricule,sigle,nbreheures) values(?,?,?,?,?)";
         String query2 = "select idInfos from API_Infos where idclasse= ? and sigle =? and code=? and matricule = ? ";
         try(PreparedStatement pstm1= dbConnect.prepareStatement(query1);
-            PreparedStatement pstm2= dbConnect.prepareStatement(query2);
         ){
             pstm1.setInt(1,elt.getClasse().getIdClasse());
             pstm1.setString(2,elt.getCours().getCode());
@@ -31,21 +30,6 @@ public class ModelInfosDB extends DAO<Infos> {
 
             int n = pstm1.executeUpdate();
             System.out.println(n+" ligne insérée");
-            if(n==1){
-                pstm2.setInt(1,elt.getClasse().getIdClasse());
-                pstm2.setInt(2,elt.getSalle().getSigle());
-                pstm2.setString(3,elt.getCours().getCode());
-                pstm2.setString(4,elt.getEnseignant().getMatricule());
-                ResultSet rs= pstm2.executeQuery();
-                if(rs.next()){
-                    int idInfos= rs.getInt(1);
-                    System.out.println("idInfos= "+idInfos);
-                    elt.setIdInfos(idInfos);
-                    return elt;
-                }
-                else System.out.println("record introuvable");
-            }
-
         } catch (SQLException e) {
             System.out.println("erreur sql :"+e);
         }
@@ -54,7 +38,7 @@ public class ModelInfosDB extends DAO<Infos> {
 
     @Override
     public boolean remove(Infos elt) {
-        String query = "delete from API_Infos where idInfos = ?";
+        String query = "delete from API_Infos where id_Infos = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,elt.getIdInfos());
             int n = pstm.executeUpdate();
@@ -72,13 +56,14 @@ public class ModelInfosDB extends DAO<Infos> {
 
     @Override
     public Infos update(Infos elt) {
-        String query = "update API_Infos set idclasse=?,code=?,matricule=?,sigle=?,nbreheures=? where idInfos = ?";
+        String query = "update API_Infos set idclasse=?,code=?,matricule=?,sigle=?,nbreheures=? where id_Infos = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,elt.getClasse().getIdClasse());
             pstm.setString(2,elt.getCours().getCode());
             pstm.setString(3,elt.getEnseignant().getMatricule());
             pstm.setInt(4,elt.getSalle().getSigle());
             pstm.setInt(5,elt.getNbreHeures());
+            pstm.setInt(6,elt.getIdInfos());
             int n = pstm.executeUpdate();
             if(n!=0){
                 System.out.println(n+ "ligne mise à jour");
@@ -94,7 +79,7 @@ public class ModelInfosDB extends DAO<Infos> {
 
     @Override
     public Infos read(int rech) {
-        String query = "select * from API_Infos where idInfos = ?";
+        String query = "select * from API_Infos where id_Infos = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,rech);
             ResultSet rs = pstm.executeQuery();

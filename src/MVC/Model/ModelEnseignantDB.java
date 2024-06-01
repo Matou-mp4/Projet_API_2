@@ -84,6 +84,7 @@ public class ModelEnseignantDB extends DAO<Enseignant> {
             pstm.setBigDecimal(5, elt.getSalaireMensu());
             pstm.setDate(6, Date.valueOf(elt.getDateEngag()));
             pstm.setInt(7, elt.getPreference().getSigle());
+            pstm.setString(8,elt.getMatricule());
             int n = pstm.executeUpdate();
             if (n != 0) {
                 System.out.println(n + "ligne mise à jour");

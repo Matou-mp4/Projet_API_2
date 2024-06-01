@@ -19,12 +19,12 @@ public class CoursController {
     }
     public List<Cours> getAll(){
         List<Cours> l = model.getAll();
-        l.sort(new Comparator<Cours>() {
-            @Override
-            public int compare(Cours c1, Cours c2) {
-                return c1.getCode().compareTo(c2.getCode());
-            }
-        });
+//        l.sort(new Comparator<Cours>() {
+//            @Override
+//            public int compare(Cours c1, Cours c2) {
+//                return c1.getCode().compareTo(c2.getCode());
+//            }
+//        });
         return l;
     }
 

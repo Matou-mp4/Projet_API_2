@@ -92,7 +92,6 @@ public class ClasseViewConsole extends ClasseAbstractView {
             System.out.println("1.annee\n2.sigle\n3.specialite\n4.nbreEleves\n5.fin");
             System.out.println("choix : ");
             ch = lireInt();
-            sc.skip("\n");
             switch (ch) {
                 case 1:
                     System.out.println("nouvelle annee : ");
