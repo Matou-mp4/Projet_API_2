@@ -46,4 +46,12 @@ public class EnseignantEtHeure {
     public Enseignant getEnseignant() {
         return enseignant;
     }
+
+    @Override
+    public String toString() {
+        return "EnseignantEtHeure{" +
+                "enseignant=" + enseignant +
+                ", nbreHeures=" + nbreHeures +
+                '}';
+    }
 }

@@ -45,4 +45,12 @@ public class CoursEtHeure {
     public void setCours(Cours cours) {
         this.cours = cours;
     }
+
+    @Override
+    public String toString() {
+        return "CoursEtHeure{" +
+                " cours=" + cours +
+                ", nbreHeures=" + nbreHeures +
+                '}';
+    }
 }

@@ -153,4 +153,16 @@ public class Infos {
     public void setIdInfos(int idInfos) {
         this.idInfos = idInfos;
     }
+
+    @Override
+    public String toString() {
+        return "Infos{" +
+                "nbreHeures=" + nbreHeures +
+                ", idInfos=" + idInfos +
+                ", cours=" + cours +
+                ", enseignant=" + enseignant +
+                ", salle=" + salle +
+                ", classe=" + classe +
+                '}';
+    }
 }

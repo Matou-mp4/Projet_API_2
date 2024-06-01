@@ -45,4 +45,12 @@ public class SalleEtHeure {
     public void setSalle(Salle salle) {
         this.salle = salle;
     }
+
+    @Override
+    public String toString() {
+        return "SalleEtHeure{" +
+                "salle=" + salle +
+                ", nbreHeures=" + nbreHeures +
+                '}';
+    }
 }

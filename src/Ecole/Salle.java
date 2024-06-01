@@ -90,4 +90,12 @@ public class Salle {
         }
         return enseignants;
     }
+
+    @Override
+    public String toString() {
+        return "Salle{" +
+                "sigle=" + sigle +
+                ", capacite=" + capacite +
+                '}';
+    }
 }

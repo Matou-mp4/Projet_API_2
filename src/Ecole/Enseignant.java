@@ -134,4 +134,18 @@ public class Enseignant {
             public void setPreference(Salle preference) {
                 this.preference = preference;
             }
+
+            @Override
+            public String toString() {
+                return "Enseignant{" +
+                        "matricule='" + matricule + '\'' +
+                        ", nom='" + nom + '\'' +
+                        ", prenom='" + prenom + '\'' +
+                        ", tel='" + tel + '\'' +
+                        ", chargeSem=" + chargeSem +
+                        ", salaireMensu=" + salaireMensu +
+                        ", dateEngag=" + dateEngag +
+                        ", preference=" + preference +
+                        '}';
+            }
         }
