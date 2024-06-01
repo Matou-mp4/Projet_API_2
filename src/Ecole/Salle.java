@@ -79,4 +79,15 @@ public class Salle {
     public void setCapacite(int capacite) {
         this.capacite = capacite;
     }
+
+    public ArrayList<Enseignant> ensSalleDefault() {
+        ArrayList<Enseignant> enseignants = new ArrayList<>();
+        for ( Enseignant element : listeEnseignant) {
+            if (element.getPreference().getSigle()==sigle) {
+                enseignants.add(element);
+                break;
+            }
+        }
+        return enseignants;
+    }
 }
