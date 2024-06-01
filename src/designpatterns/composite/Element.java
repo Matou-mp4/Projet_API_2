@@ -13,6 +13,8 @@ public abstract class Element {
         return id;
     }
 
+    public abstract int nbreEleves();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

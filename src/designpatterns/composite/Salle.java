@@ -17,7 +17,7 @@ public class Salle {
     /**
      * liste d'enseignant attitrés à cette salle
      */
-    protected ArrayList<Ecole.Enseignant> listeEnseignant=new ArrayList<>();
+    protected ArrayList<Enseignant> listeEnseignant=new ArrayList<>();
 
     public Salle() {
     }

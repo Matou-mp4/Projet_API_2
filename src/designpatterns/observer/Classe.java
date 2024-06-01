@@ -5,7 +5,7 @@ import designpatterns.builder.Infos;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Classe extends Observer{
+public class Classe extends Subject{
     /**
      * le sigle et la specialité unique de la classe
      */
@@ -73,6 +73,7 @@ public class Classe extends Observer{
 
     public void setNbreEleves(int nbreEleves) {
         this.nbreEleves = nbreEleves;
+        notifyObservers();
     }
 
     public ArrayList<Infos> getListeInfos() {
@@ -104,7 +105,7 @@ public class Classe extends Observer{
     }
 
     @Override
-    public void update(String msg) {
-
+    public String getNotification() {
+        return null;
     }
 }

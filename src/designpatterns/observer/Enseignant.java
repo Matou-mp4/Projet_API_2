@@ -42,6 +42,15 @@ public class Enseignant extends Observer{
         this.preference = preference;
     }
 
+    public Enseignant(String matricule, String nom, String prenom, String tel, int chargeSem) {
+        this.matricule = matricule;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.tel = tel;
+        this.chargeSem = chargeSem;
+        this.salaireMensu = salaireMensu;
+    }
+
     public String getMatricule() {
         return matricule;
     }

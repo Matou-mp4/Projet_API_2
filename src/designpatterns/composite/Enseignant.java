@@ -26,12 +26,12 @@ public class Enseignant {
     /**
      * Class.Classe préférée de l'enseignant
      */
-    protected Ecole.Classe preference;
+    protected Classe preference;
 
     public Enseignant() {
     }
 
-    public Enseignant(String matricule, String nom, String prenom, String tel, int chargeSem, BigDecimal salaireMensu, LocalDate dateEngag, Ecole.Classe preference) {
+    public Enseignant(String matricule, String nom, String prenom, String tel, int chargeSem, BigDecimal salaireMensu, LocalDate dateEngag, Classe preference) {
         this.matricule = matricule;
         this.nom = nom;
         this.prenom = prenom;

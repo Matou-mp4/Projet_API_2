@@ -24,6 +24,8 @@ public class Classe {
      */
     protected ArrayList<Infos> listeInfos = new ArrayList<>();
 
+    protected Section section;
+
     public Classe() {
     }
 
@@ -77,6 +79,18 @@ public class Classe {
 
     public ArrayList<Infos> getListeInfos() {
         return listeInfos;
+    }
+
+    public void setListeInfos(ArrayList<Infos> listeInfos) {
+        this.listeInfos = listeInfos;
+    }
+
+    public Section getSection() {
+        return section;
+    }
+
+    public void setSection(Section section) {
+        this.section = section;
     }
 
     @Override
