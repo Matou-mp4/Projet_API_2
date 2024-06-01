@@ -322,6 +322,10 @@ public class Classe {
         return listeInfos;
     }
 
+    public void setListeInfos(ArrayList<Infos> listeInfos) {
+        this.listeInfos = listeInfos;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -335,5 +339,6 @@ public class Classe {
         return Objects.hash(sigle, specialite, idClasse, annee, nbreEleves);
     }
 }
+
 
 

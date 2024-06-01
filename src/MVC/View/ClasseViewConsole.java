@@ -73,7 +73,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
 
 
     public void recherche() {
-        System.out.println("id de la classe recherché ");
+        System.out.println("id de la classe recherché : ");
         int idrech = lireInt();
         Classe classe = classeController.read(idrech);
         if (classe == null) affMsg("La classe recherchee n'existe pas");
@@ -230,8 +230,8 @@ public class ClasseViewConsole extends ClasseAbstractView {
 
     public void modifierCours(Classe classe) {
         System.out.print("Cours souhaite :");
-        List<Cours> courss = classeController.getCourss();
-        Cours cours = courss.get(choixListe(courss) - 1);
+        List<Infos> infos = classeController.listerInfos(classe);
+        Infos info = infos.get(choixListe(infos) - 1);
         int ch;
         do {
             System.out.println("1. Modifier enseignant\n2. Modifier salle\n3. Modifier heures\n4. Retour");
@@ -239,13 +239,13 @@ public class ClasseViewConsole extends ClasseAbstractView {
             ch = lireInt();
             switch (ch) {
                 case 1:
-                    modifEnseignant(classe, cours);
+                    modifEnseignant(info);
                     break;
                 case 2:
-                    modifSalle(classe, cours);
+                    modifSalle(info);
                     break;
                 case 3:
-                    modifHeure(classe, cours);
+                    modifHeure(info);
                     break;
                 case 4:
                     break;
@@ -255,33 +255,33 @@ public class ClasseViewConsole extends ClasseAbstractView {
         } while (ch != 4);
     }
 
-    public void modifEnseignant(Classe classe, Cours cours) {
+    public void modifEnseignant(Infos infos) {
         affMsg("Enseignant souhaite : ");
         List<Enseignant> enseignants = classeController.getEnseignants();
         int idrech = choixListe(enseignants);
         Enseignant enseignant = enseignants.get(idrech - 1);
-        classeController.modifCours(classe, cours, enseignant);
+        classeController.modifCours(infos.getClasse(), infos.getCours(), enseignant);
     }
 
-    public void modifSalle(Classe classe, Cours cours) {
+    public void modifSalle(Infos infos) {
         affMsg("Salle souhaitee : ");
         List<Salle> salles = classeController.getSalles();
         int idrech = choixListe(salles);
         Salle salle = salles.get(idrech - 1);
-        classeController.modifCours(classe, cours, salle);
+        classeController.modifCours(infos.getClasse(), infos.getCours(), salle);
     }
 
-    public void modifHeure(Classe classe, Cours cours) {
+    public void modifHeure(Infos infos) {
         System.out.print("nbre d'heures souhaitees :");
         int nbreHeures = lireInt();
-        classeController.modifCours(classe, cours, nbreHeures);
+        classeController.modifCours(infos.getClasse(), infos.getCours(), nbreHeures);
     }
 
     public void suppressionCours(Classe classe) {
         System.out.print("Cours souhaite :");
-        List<Cours> courss = classeController.getCourss();
-        Cours cours = courss.get(choixListe(courss) - 1);
-        classeController.suppCours(classe, cours);
+        List<Infos> infos = classeController.listerInfos(classe);
+        Infos info = infos.get(choixListe(infos) - 1);
+        classeController.suppCours(classe, info.getCours());
     }
 
     public void salleCapaciteOK(Classe classe) {
@@ -289,7 +289,12 @@ public class ClasseViewConsole extends ClasseAbstractView {
         List<Salle> salles = classeController.getSalles();
         int idrech = choixListe(salles);
         Salle salle = salles.get(idrech - 1);
-        System.out.println(classeController.salleCapaciteOK(classe, salle));
+        if(classeController.salleCapaciteOK(classe, salle)){
+            System.out.println("Salle compatible");
+        }
+        else{
+            System.out.println("Salle incompatible");
+        }
     }
 }
 

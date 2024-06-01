@@ -161,8 +161,8 @@ public class ModelClasseDB extends DAO<Classe> implements DAOSpecialClasse{
         ){
             pstm1.setInt(1,c.getIdClasse());
             pstm1.setString(2,co.getCode() );
-            pstm1.setString(3,"x");
-            pstm1.setInt(4,0);
+            pstm1.setString(3,"JMI");
+            pstm1.setInt(4,3);
             pstm1.setInt(5,heures);
             int n = pstm1.executeUpdate();
             System.out.println(n+" ligne insérée");
@@ -171,12 +171,12 @@ public class ModelClasseDB extends DAO<Classe> implements DAOSpecialClasse{
         }
         return c;
     }
-    // Les elements ajoutes dans la table api_infos ne pouvant pas avoir de valeur null, le matricule aura x en valeur automatique et sigle aura 0
+    // Les elements ajoutes dans la table api_infos ne pouvant pas avoir de valeur null, le matricule aura x en valeur automatique et sigle serq 3
 
     @Override
     public Classe modifCours(Classe c, Cours co, Enseignant e) {
         c.modifCours(co,e);
-        String query = "update API_INFOS  set enseignant=? where idclasse = ? and code = ?";
+        String query = "update API_INFOS  set matricule = ? where idclasse = ? and code = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1,e.getMatricule());
             pstm.setInt(2,c.getIdClasse());

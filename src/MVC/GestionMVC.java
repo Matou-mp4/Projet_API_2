@@ -49,6 +49,7 @@ public class GestionMVC {
         classeController.setCoursController(coursController);
         classeController.setEnseignantController(enseignantController);
         classeController.setSalleController(salleController);
+        classeController.setInfosController(infosController);
 
         infosController.setClasseController(classeController);
         infosController.setCoursController(coursController);

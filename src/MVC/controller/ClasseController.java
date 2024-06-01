@@ -14,6 +14,7 @@ public class ClasseController{
     private CoursController coursController;
     private SalleController salleController;
     private EnseignantController enseignantController;
+    private InfosController infosController;
 
     public ClasseController(DAO<Classe> model, ClasseAbstractView view) {
         this.model = model;
@@ -42,6 +43,21 @@ public class ClasseController{
     public List<Enseignant> getEnseignants(){
         return enseignantController.getAll();
     }
+
+    public void setInfosController(InfosController infosController) {
+        this.infosController = infosController;
+    }
+
+    public List<Infos> listerInfos(Classe classe){
+         List<Infos> infos = new ArrayList<>();
+        for (Infos element:infosController.getAll()
+             ) {
+            if (element.getClasse().getIdClasse() == classe.getIdClasse()){
+                infos.add(element);
+            }
+        }
+        return infos;
+    }
     public List<Classe> getAll(){
         List<Classe> l = model.getAll();
         l.sort(new Comparator<Classe>() {
@@ -67,17 +83,25 @@ public class ClasseController{
         return  model.read(rech);
     }
     public int nbreHeuresTot(Classe c){
-       return ((DAOSpecialClasse)model).nbreHeuresTot(c);
+        ArrayList<Infos> infos= (ArrayList<Infos>) listerInfos(c);
+        c.setListeInfos(infos);
+        return ((DAOSpecialClasse)model).nbreHeuresTot(c);
     }
 
     public ArrayList<EnseignantEtHeure> listeEnseignantsEtHeures(Classe c) {
+        ArrayList<Infos> infos= (ArrayList<Infos>) listerInfos(c);
+        c.setListeInfos(infos);
         return ((DAOSpecialClasse)model).listeEnseignantsEtHeures(c);
     }
 
     public ArrayList<SalleEtHeure> listerSallesEtHeures(Classe c) {
+        ArrayList<Infos> infos= (ArrayList<Infos>) listerInfos(c);
+        c.setListeInfos(infos);
         return ((DAOSpecialClasse)model).listeSallesEtHeures(c);
     }
     public ArrayList<CoursEtHeure> listerCoursEtHeurs(Classe c) {
+        ArrayList<Infos> infos= (ArrayList<Infos>) listerInfos(c);
+        c.setListeInfos(infos);
         return ((DAOSpecialClasse)model).listeCoursEtHeures(c);
     }
     public Classe addCours(Classe c, Cours co, int heures) {
@@ -97,8 +121,5 @@ public class ClasseController{
     }
     public boolean salleCapaciteOK(Classe c, Salle salle) {
         return ((DAOSpecialClasse)model).salleCapaciteOK(c,salle);
-    }
-    public ArrayList<Infos> listerInfos(Classe c) {
-        return ((DAOSpecialClasse)model).listerInfos(c);
     }
 }
