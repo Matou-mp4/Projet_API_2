@@ -98,7 +98,7 @@ public class Enseignant {
         this.dateEngag = dateEngag;
     }
 
-    public Ecole.Classe getPreference() {
+    public Classe getPreference() {
         return preference;
     }
 

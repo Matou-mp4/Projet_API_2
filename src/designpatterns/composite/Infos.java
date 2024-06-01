@@ -13,20 +13,20 @@ protected int nbreHeures;
     /**
      * cours donné
      */
-    protected Ecole.Cours cours;
+    protected Cours cours;
     /**
      * enseignant donnant le cours
      */
-    protected Ecole.Enseignant enseignant;
+    protected Enseignant enseignant;
     /**
      * sallee où le cours est donné
      */
-    protected Ecole.Salle salle;
+    protected Salle salle;
 
     public Infos() {
     }
 
-    public Infos(int nbreHeures, Ecole.Cours cours, Ecole.Enseignant enseignant, Ecole.Salle salle) {
+    public Infos(int nbreHeures, Cours cours, Enseignant enseignant, Salle salle) {
         this.nbreHeures = nbreHeures;
         this.cours = cours;
         this.enseignant = enseignant;
@@ -41,7 +41,7 @@ protected int nbreHeures;
         this.nbreHeures = nbreHeures;
     }
 
-    public Ecole.Cours getCours() {
+    public Cours getCours() {
         return cours;
     }
 
@@ -49,7 +49,7 @@ protected int nbreHeures;
         this.cours = cours;
     }
 
-    public Ecole.Enseignant getEnseignant() {
+    public Enseignant getEnseignant() {
         return enseignant;
     }
 
@@ -57,7 +57,7 @@ protected int nbreHeures;
         this.enseignant = enseignant;
     }
 
-    public Ecole.Salle getSalle() {
+    public Salle getSalle() {
         return salle;
     }
 
