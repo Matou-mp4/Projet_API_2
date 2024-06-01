@@ -11,6 +11,11 @@ import java.util.List;
 public class SalleController {
     private DAO<Salle> model;
     private SalleAbstractView view;
+    private EnseignantController enseignantController;
+
+    public void setEnseignantController(EnseignantController enseignantController) {
+        this.enseignantController = enseignantController;
+    }
 
     public SalleController(DAO<Salle> model, SalleAbstractView view) {
         this.model = model;

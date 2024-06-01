@@ -33,6 +33,23 @@ public class InfosController {
     public List<Enseignant> getEnseignants(){
         return enseignantController.getAll();
     }
+
+    public void setSalleController(SalleController salleController) {
+        this.salleController = salleController;
+    }
+
+    public void setClasseController(ClasseController classeController) {
+        this.classeController = classeController;
+    }
+
+    public void setCoursController(CoursController coursController) {
+        this.coursController = coursController;
+    }
+
+    public void setEnseignantController(EnseignantController enseignantController) {
+        this.enseignantController = enseignantController;
+    }
+
     public List<Infos> getAll(){
         List<Infos> l = model.getAll();
         l.sort(new Comparator<Infos>() {
