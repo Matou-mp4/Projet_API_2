@@ -43,5 +43,14 @@ public class SalleController {
         return  model.read(rech);
     }
 
-
+    public ArrayList<Enseignant> ensSalleDefault(Salle salle){
+        ArrayList<Enseignant> enseignants = ((ModelSalleDB)model).ensSalleDefault(salle);
+        enseignants.sort(new Comparator<Enseignant>() {
+            @Override
+            public int compare(Enseignant e1, Enseignant e2) {
+                return e1.getMatricule().compareTo(e2.getMatricule());
+            }
+        });
+        return enseignants;
+    }
 }

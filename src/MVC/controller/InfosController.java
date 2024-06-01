@@ -48,10 +48,6 @@ public class InfosController {
         Infos nelt = model.add(elt);
         return nelt;
     }
-
-
-
-
     public boolean remove(Infos elt) {
         return model.remove(elt);
     }

@@ -6,10 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelSalleDB extends DAO<Salle> implements DAOSpecialSalle{
+public class ModelSalleHybrid extends DAO<Salle> implements DAOSpecialSalle{
     protected Connection dbConnect;
 
-    public ModelSalleDB() {
+    public ModelSalleHybrid() {
         dbConnect = DBConnection.getConnection();
         if (dbConnect == null) {
             System.err.println("erreur de connexion");
@@ -114,19 +114,6 @@ public class ModelSalleDB extends DAO<Salle> implements DAOSpecialSalle{
 
     @Override
     public ArrayList<Enseignant> ensSalleDefault(Salle salle) {
-        ArrayList<Enseignant> enseignants = new ArrayList<>();
-        String query="select Matricule from API_ENSEIGNANT where sigle = ?";
-        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setInt(1,salle.getSigle());
-            ResultSet rs = pstm.executeQuery(query);
-            while(rs.next()){
-                String matricule = rs.getString(1);
-                Enseignant enseignant = new Enseignant(matricule,null,null,null,0,null,null,null);
-                enseignants.add(enseignant);
-            }
-        } catch (SQLException e) {
-            System.out.println("erreur sql :"+e);
-        }
-        return enseignants;
+        return salle.ensSalleDefault();
     }
 }

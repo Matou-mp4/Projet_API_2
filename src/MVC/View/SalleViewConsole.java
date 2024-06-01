@@ -78,7 +78,9 @@ public class SalleViewConsole extends SalleAbstractView {
         if(Salle==null) affMsg("La Salle recherchee n'existe pas");
         else{
             affMsg(Salle.toString());
+            special(Salle);
         }
+
     }
 
     public void modification() {
@@ -141,7 +143,27 @@ public class SalleViewConsole extends SalleAbstractView {
         Salle Salle = lc.get(nl - 1);
         return Salle;
     }
+    public void special(Salle salle) {
+        int ch;
+        do {
+            System.out.println("1. Lister les enseignant ayant cette salle par derault\n2. Retour");
+            System.out.println("choix : ");
+            ch = lireInt();
+            switch (ch) {
+                case 1:
+                    ensSalleDefault(salle);
+                    break;
+                case 2:
+                    break;
+                default:
+                    System.out.println("choix invalide recommencez ");
+            }
+        } while (ch != 2);
+    }
 
+    private void ensSalleDefault(Salle salle) {
+       affList(salleController.ensSalleDefault(salle));
+    }
 }
 
 
