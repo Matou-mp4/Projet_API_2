@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelCoursDB extends DAO<Cours> {
+public class ModelCoursDB extends DAO<Cours> implements DAOSpecialCours{
     protected Connection dbConnect;
 
     public ModelCoursDB() {
@@ -113,4 +113,19 @@ public class ModelCoursDB extends DAO<Cours> {
         }
         return lCours;
     }
+    @Override
+    public int getNombreHeure(Cours cours){
+        String query = "select sum(nbreheures) from API_Infos where code = ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setString(1, cours.getCode());
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else System.out.println("record introuvable");
+        } catch (SQLException e) {
+            System.out.println("erreur sql :" + e);
+        }
+        return 0;
+    }
+
 }

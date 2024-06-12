@@ -11,6 +11,7 @@ import java.util.List;
 public class CoursController {
     private DAO<Cours> model;
     private CoursAbstractView view;
+    private InfosController infosController;
 
     public CoursController(DAO<Cours> model, CoursAbstractView view) {
         this.model = model;
@@ -28,6 +29,17 @@ public class CoursController {
         return l;
     }
 
+    public InfosController getInfosController() {
+        return infosController;
+    }
+
+    public void setInfosController(InfosController infosController) {
+        this.infosController = infosController;
+    }
+    public List<Infos> getInfos(){
+        return infosController.getAll();
+    }
+
     public Cours add(Cours elt) {
         Cours nelt = model.add(elt);
         return nelt;
@@ -41,4 +53,7 @@ public class CoursController {
     public Cours read(String code) {
         return model.read(code);
     }
+   public int getNombreHeure(Cours cours){
+      return ((DAOSpecialCours)model).getNombreHeure(cours);
+   }
 }

@@ -1,4 +1,4 @@
-package designpatterns.builder;
+package designpatterns.builderExamen;
 import java.util.Objects;
 public class Cours {
     /**

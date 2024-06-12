@@ -1,4 +1,4 @@
-package designpatterns.builder;
+package designpatterns.builderExamen;
 
 import Ecole.Enseignant;
 

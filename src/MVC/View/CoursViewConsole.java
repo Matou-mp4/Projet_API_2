@@ -55,6 +55,16 @@ public class CoursViewConsole extends CoursAbstractView {
         Utilitaire.affListe(l);
     }
 
+    @Override
+    public int getNombreHeure(Cours cours) {
+        return CoursController.getNombreHeure(cours);
+    }
+
+//    @Override
+//    public int getNombreHeure(Cours cours) {
+//        return 0;
+//    }
+
     public void ajout() {
         System.out.print("Code :");
         String code = sc.nextLine();
@@ -72,10 +82,11 @@ public class CoursViewConsole extends CoursAbstractView {
     public void recherche() {
         System.out.println("Code du cours recherché : ");
         String code = sc.nextLine();
-        Cours Cours = CoursController.read(code);
-        if(Cours==null) affMsg("La Cours recherchee n'existe pas");
+        Cours cours = CoursController.read(code);
+        if(cours==null) affMsg("La Cours recherchee n'existe pas");
         else{
-            affMsg(Cours.toString());
+            affMsg(cours.toString());
+            System.out.println(getNombreHeure(cours) +" heures de pour ce cours.");
         }
     }
 

@@ -25,4 +25,5 @@ public abstract class CoursAbstractView implements Observer {
         this.lc = lc;
         affList(lc);
     }
+    public abstract int getNombreHeure(Cours cours);
 }
