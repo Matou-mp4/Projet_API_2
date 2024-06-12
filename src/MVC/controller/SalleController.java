@@ -12,6 +12,25 @@ public class SalleController {
     private DAO<Salle> model;
     private SalleAbstractView view;
     private EnseignantController enseignantController;
+    private InfosController infosController;
+    private ClasseController classeController;
+
+    public void setInfosController(InfosController infosController) {
+        this.infosController = infosController;
+    }
+    public List<Infos> getInfos(){
+        return infosController.getAll();
+    }
+
+    public void setClasseController(ClasseController classeController) {
+        this.classeController = classeController;
+    }
+    public List<Classe> getClasses(){
+        return classeController.getAll();
+    }
+    public ClasseController getClasseController(){
+        return classeController;
+    }
 
     public void setEnseignantController(EnseignantController enseignantController) {
         this.enseignantController = enseignantController;

@@ -5,6 +5,7 @@ import myConnectionDB.DBConnection;
 import utilitaires.Utilitaire;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -72,13 +73,38 @@ public class SalleViewConsole extends SalleAbstractView {
     public void recherche() {
         System.out.println("sigle de la Salle recherché : ");
         int sigle = lireInt();
-        Salle Salle = salleController.read(sigle);
-        if(Salle==null) affMsg("La Salle recherchee n'existe pas");
+        Salle salle = salleController.read(sigle);
+        if(salle==null) affMsg("La Salle recherchee n'existe pas");
         else{
-            affMsg(Salle.toString());
-            special(Salle);
+            affMsg(salle.toString());
+            afficheClassesParSalle(salle);
+            special(salle);
         }
 
+    }
+
+    public void afficheClassesParSalle(Salle salle){
+        ArrayList<Salle> salles = new ArrayList<>();
+        ArrayList<Classe> classes = new ArrayList<>();
+        int cpt;
+        for (Infos infos:salleController.getInfos()
+             ) {
+            if (salle.getSigle()==infos.getSalle().getSigle()) {
+                cpt=0;
+                for (Classe cl: classes
+                     ) {
+                    if(infos.getClasse().getIdClasse()==cl.getIdClasse()){
+                        cpt++;
+                    }
+                }
+                if(cpt==0){
+                    salles.add(infos.getSalle());
+                    Classe classe = infos.getClasse();
+                    classes.add(salleController.getClasseController().read(classe.getIdClasse()));
+                }
+            }
+        }
+        //Utilitaire.affListe(classes);
     }
 
     public void modification() {
